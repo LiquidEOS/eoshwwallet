@@ -301,7 +301,8 @@ var selectPw = new InputMessage({
 		await delay(2000);
 		const examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
 		const words = examplePhrase.split(' ');
-		for (var i = 0; i < words.length - 1; i++) {
+		console.log("words",words);
+		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
 			clear(false);
 			drawText(3,3,i + ". " + word, true);
@@ -312,7 +313,7 @@ var selectPw = new InputMessage({
 		console.log('showing seed again');
 		drawText(3,3,"seed again:", true);
 		await delay(2000);
-		for (var i = 0; i < words.length - 1; i++) {
+		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
 			clear(false);
 			drawText(3,3,i + ". " + word, true);
