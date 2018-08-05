@@ -188,10 +188,12 @@ function drawLine(x0,y0,x1,y1,c){
 
 async function splash(){
 	await sendImage(0,0,bg3);
+	sendPixelMatrix();	
 	await delay(2000);
 	await sendImage(0,0,bg1);
+	sendPixelMatrix();	
 	clear(true);
-	await delay(2000);
+	sendPixelMatrix();	
 }
 class RebootTimer {
 	constructor(){		
