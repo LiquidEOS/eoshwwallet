@@ -297,7 +297,11 @@ class InputMessage {
 				textToDraw =  this.input;
 			}
 		}
-		drawText(50,70,textToDraw,true, true);
+		var chunks = chunkSubstr(textToDraw, 12);
+		for (var i = 0; i <= chunks.length - 1; i++) {		
+			drawText(3,25 + i * 25,chunks[i], false);
+		}
+		// drawText(50,70,textToDraw,true, true);
 	}
 }
 
