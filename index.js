@@ -229,6 +229,7 @@ class InputMessage {
 		this.input = "";		
 		this.showLast = false;
 		this.selection = 0;
+		currentUI = this;
 		setTimeout(()=>{
 			this2.drawOptions();
 		},100);
@@ -308,6 +309,7 @@ class ConfirmationMessage {
 	start(){
 		var this2 = this;
 		this.selection = 0;
+		currentUI = this;
 		setTimeout(()=>{
 			this2.drawOptions();
 		},100);
@@ -367,7 +369,8 @@ var selectPw = new InputMessage({
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
 		await delay(2000);
-		const examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
+		let examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
+		examplePhrase = "hello";
 		const words = examplePhrase.split(' ');
 		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
@@ -396,18 +399,18 @@ var selectPw = new InputMessage({
 					// proceed
 					clear(false);
 					drawText(3,3,"enter pw again", true);
-					await delay(1000);
-					currentUI = enterPw;
-					currentUI.start();					
+					await delay(1000);					
+					enterPw.start();					
 				}
 				else {
-					// restart process 
-					currentUI = selectPw;
-					currentUI.start();
+					// restart process 					
+					selectPw.start();
 				}
 
 			}
-		})
+		});
+		
+		confirm.start();
 
 	},
 	hide: true,
