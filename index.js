@@ -488,6 +488,15 @@ var bodyParser = require('body-parser')
 var unlocked = false;
 const app = express()
 app.use(bodyParser.json());
+app.get('/', async (req, res) => {
+	if(!unlocked){
+		clear(false);
+		drawText(0,0,"click to unlock", true);
+		res.send('locked');
+		return;
+	}
+	res.send(publicKey);
+}
 app.post('/', async (req, res) => {
 	console.log(req.body);
 	if(!unlocked){
