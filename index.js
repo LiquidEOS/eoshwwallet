@@ -585,16 +585,16 @@ app.post('/', async (req, res) => {
 					// proceed
 					await delay(300);
 					clear(false);
-					drawText(0,0,"signed");
-					res.send("signed transaction.", true);
+					drawText(0,0,"signed", true);
+					res.send("signed transaction.");
 					currentUI = null;
 				}
 				else {
 					// restart process
 					
 					clear(false);
-					drawText(0,0,"rejected");
-					res.send("rejected transaction.", true);
+					drawText(0,0,"rejected", true);
+					res.send("rejected transaction.");
 					
 					currentUI = null;
 				}
