@@ -355,45 +355,43 @@ class ConfirmationMessage {
 		drawText(50,70,textToDraw,true);
 	}
 }
-
-var selectPw = new InputMessage({
-	title: "choose password",
-	onSelect: async (pw)=>{
-		
-		clear(false);
-		drawText(3,3,"generating seed", true);
-		await delay(4000);
-		// showing seed.
-			
-		clear(false);
-		drawText(3,3,"showing seed:", true);
-		console.log('showing seed');
-		await delay(4000);
-		let examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
+async function genSeed(){
+	let examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
 		examplePhrase = "witch collapse";
 		const words = examplePhrase.split(' ');
+		return words;
+}
+async function showSeed(words){
 		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
 			clear(false);
 			drawText(3,3,(i+1) + ". " + word, true);
 			await delay(4000);
 		}
+
+}
+async function genShowSeed(pw){
+		clear(false);
+		drawText(3,3,"generating seed", true);
+		await delay(4000);
+		// showing seed.			
+		clear(false);
+		drawText(3,3,"showing seed:", true);
+		console.log('showing seed');
+		await delay(4000);		
+		const words = genSeed();
+		await showSeed(words);
 		clear(false);
 		console.log('showing seed again');
 		drawText(3,3,"seed again:", true);
 		await delay(4000);
-		for (var i = 0; i <= words.length - 1; i++) {
-			var word = words[i];
-			clear(false);
-			drawText(3,3,(i+1) + ". " + word, true);
-			await delay(4000);
-		}
+		await showSeed(words);
 
 		console.log("proceed?")
 		// do you want to proceed?
 		const confirm = new ConfirmationMessage({
 			title: "proceed?",
-			text: "do you want to proceed?",
+			text: "do you want to keep this seed?",
 			onSelect: async (yn)=>{
 				if(yn == 'Y'){
 					// proceed
@@ -404,13 +402,17 @@ var selectPw = new InputMessage({
 				}
 				else {
 					// restart process 					
-					selectPw.start();
+					genShowSeed(pw);
 				}
 
 			}
-		});
-		
+		});		
 		confirm.start();
+}
+var selectPw = new InputMessage({
+	title: "choose password",
+	onSelect: async (pw)=>{
+		genShowSeed(pw)
 
 	},
 	hide: true,
