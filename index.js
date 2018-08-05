@@ -607,7 +607,7 @@ app.post('/', async (req, res) => {
 
 	const confirm = new ConfirmationMessage({
 		title: "sign?",
-		text: "Transaction data",
+		text: req.body.text,
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){
 					// proceed
