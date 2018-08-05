@@ -294,7 +294,8 @@ var selectPw = new InputMessage({
 		drawText(3,3,"generating seed", true);
 		await delay(2000);
 		// showing seed.
-
+		
+		clear(false);
 		drawText(3,3,"showing seed:", true);
 		await delay(2000);
 		const examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
