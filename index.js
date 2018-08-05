@@ -203,7 +203,12 @@ class RebootTimer {
 				this2.run();
 			},10000);
 	}
-	reboot(){
+	async reboot(){
+		clear(false);
+		drawText(3,3,"rebooting...", true);
+		await delay(3000);
+		clear(true);
+		await delay(2000);
 		require('child_process').exec('sudo /sbin/shutdown -r now', function (msg) { console.log(msg) });
 	}
 
