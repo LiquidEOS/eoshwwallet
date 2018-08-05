@@ -183,7 +183,7 @@ sendImage(0,0,bg3);
 sendImage(0,0,bg1);
 class RebootTimer {
 	constructor(){		
-		var minutes = 1;
+		var minutes = 15;
 		this.gracePeriod = 1000 * 60 * minutes;
 		this.resetTimer();
 		this.run();
