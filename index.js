@@ -347,8 +347,8 @@ class ConfirmationMessage {
 		this.options.onSelect(this.options.choices[this.selection]);
 	}
 	B(){
-		this.selectInput();
 		this.drawOptions();
+		this.selectInput();		
 	}
 	updateSelection(newSelection){
 		this.selection = newSelection;		
