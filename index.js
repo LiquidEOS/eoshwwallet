@@ -22,8 +22,8 @@ function sendImage(x,y,image){
 	 });	
 
 }
-BDF.loadSync('c64d.bdf');
-BDFBig.loadSync('c64.bdf');
+BDF.loadSync('c64.bdf');
+BDFBig.loadSync('c64d.bdf');
 
 let pixelMatrix = [];
 let pixelMatrixPrev = [];
