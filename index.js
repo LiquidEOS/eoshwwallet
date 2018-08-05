@@ -505,7 +505,7 @@ app.post('/', async (req, res) => {
 		return;
 	}
 	const confirm = new ConfirmationMessage({
-		title: "sign?",
+		title: "Sign transaction?",
 		text: req.body.text || "",
 		text2: req.body.text2 || "",
 		onSelect: async (yn)=>{
