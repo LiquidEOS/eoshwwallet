@@ -1,0 +1,17 @@
+{
+  "name": "testcomm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bdf": "^1.0.1",
+    "node-fetch": "^2.1.2",
+    "rpi-gpio": "^1.0.0"
+  }
+}
