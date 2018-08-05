@@ -250,6 +250,9 @@ class InputMessage {
 	}
 	selectInput(){
 		this.options.onSelect(this.input);
+		this.input = "";
+		this.showLast = false;
+		this.selection = 0;
 	}
 	B(){
 		this.showLast = false;
