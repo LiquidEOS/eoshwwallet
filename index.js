@@ -192,13 +192,16 @@ class RebootTimer {
 		this.lastUse = new Date().getTime();
 	}
 	run(){
+		var this2 = this;
 		if(isDebug)
 			return;
 		if(this.lastUse + this.gracePeriod < new Date().getTime()){
 			this.reboot();
 		}
 		else
-			setTimeout(this.run,10000);
+			setTimeout(()=>{
+				this2.run();
+			},10000);
 	}
 	reboot(){
 		require('child_process').exec('sudo /sbin/shutdown -r now', function (msg) { console.log(msg) });
