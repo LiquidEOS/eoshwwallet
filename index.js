@@ -605,6 +605,17 @@ async function genMnemonicWithPass(password){
     let mnemonic = bip39.entropyToMnemonic(hash);
     return bip39.mnemonicToSeedHex(mnemonic);
 }
+function chunkSubstr(str, size) {
+  const numChunks = Math.ceil(str.length / size)
+  const chunks = new Array(numChunks)
+
+  for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+    chunks[i] = str.substr(o, size)
+  }
+
+  return chunks
+}
+
 function unlockWallet(mnemonic){
 	unlocked = true;
 	rebootTimer = new RebootTimer();
@@ -615,7 +626,10 @@ function unlockWallet(mnemonic){
 	privateKey = wif.encode(128, node._privateKey, false);
 	clear(true);
 	drawText(3,3,"unlocked", false);
-	drawText(3,30,publicKey, false);
+	var chunks = chunkSubstr(publicKey, 25);
+	for (var i = 0; i <= chunks.length - 1; i++) {		
+		drawText(3,30 + i * 25,chunks[i], false);
+	}
 }
 
 async function secureHash(cleartext) {
