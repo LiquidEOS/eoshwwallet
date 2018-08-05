@@ -370,7 +370,7 @@ var selectPw = new InputMessage({
 		console.log('showing seed');
 		await delay(4000);
 		let examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
-		examplePhrase = "hello";
+		examplePhrase = "witch collapse";
 		const words = examplePhrase.split(' ');
 		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
