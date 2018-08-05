@@ -714,7 +714,7 @@ var enterPw = new InputMessage({
 
 
 var passwordExist = fs.existsSync('/home/pi/wallet.inited');
-init().then(()=>{
+init().then(async ()=>{
 	clear(true);
 	if(passwordExist){
 		enterPw.start();
