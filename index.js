@@ -188,7 +188,7 @@ async function splash(){
 	await sendImage(0,0,bg3);
 	await delay(2000);
 	await sendImage(0,0,bg1);
-	clear(false);
+	clear(true);
 	await delay(2000);
 }
 class RebootTimer {
