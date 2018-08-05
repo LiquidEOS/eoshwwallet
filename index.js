@@ -594,7 +594,7 @@ app.post('/', async (req, res) => {
 
 			}
 	});
-	
+	confirm.start();
 })
 // return public keys
 
