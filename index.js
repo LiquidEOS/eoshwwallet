@@ -522,9 +522,9 @@ const hdkey = require('hdkey')
 const wif = require('wif')
 const bip39 = require('bip39')
 
-function genSeed(pw){	
+async function genSeed(pw){	
     let mnemonic = bip39.generateMnemonic();
-    mnemonic = genMnemonicWithPass(pwd);
+    mnemonic = await genMnemonicWithPass(pwd);
     // mnemonic = bip39.generateMnemonic();
 	const words = mnemonic.split(' ');	
 	return words;
@@ -547,7 +547,7 @@ async function genShowSeed(pw){
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
 		await delay(4000);		
-		const words = genSeed();
+		const words = await genSeed();
 		await showSeed(words);
 		clear(false);
 		console.log('showing seed again');
@@ -590,7 +590,7 @@ async function genShowSeed(pw){
 
 var publicKey = '';
 var privateKey = '';
-function genMnemonicWithPass(password){
+async function genMnemonicWithPass(password){
 	const hash = await secureHash(password);
     let mnemonic = bip39.entropyToMnemonic(hash);
     return bip39.mnemonicToSeedHex(mnemonic);
@@ -669,7 +669,7 @@ var enterPw = new InputMessage({
 		// clear(false);
 		// unlocked
 		var mnemonic = '';
-		mnemonic = genMnemonicWithPass(pw);
+		mnemonic = await genMnemonicWithPass(pw);
 		unlockWallet();
 		currentUI = null;
 		
