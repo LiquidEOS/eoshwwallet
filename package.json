@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bdf": "^1.0.1",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "keypress": "^0.2.1",
     "node-fetch": "^2.1.2",

@@ -438,6 +438,8 @@ var enterPw = new InputMessage({
 		// await delay(4000);
 		// clear(false);
 		// unlocked
+		currentUI = null;
+		unlocked = true;
 		rebootTimer = new RebootTimer();
 	},
 	choices: [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!']
@@ -449,7 +451,7 @@ function buttonL(){
 		if(lastTimes.l + 250 > new Date().getTime())
 			return;
 	}
-	currentUI.L();
+	if(currentUI) currentUI.L();
 	
 	// sendImage(0,0,bg2);
 	lastTimes.l = new Date().getTime();
@@ -460,7 +462,7 @@ function buttonR(){
 		if(lastTimes.r + 250 > new Date().getTime())
 			return;
 	}
-	currentUI.R();
+	if(currentUI) currentUI.R();
 	lastTimes.r = new Date().getTime();
 }
 
@@ -471,7 +473,8 @@ function buttonBoth(){
 	}
 	wasBothClick = true;
 	lastTimes.b = new Date().getTime();
-	currentUI.B();
+	if(currentUI)
+		currentUI.B();
 }
 var state = {};
 
@@ -552,16 +555,46 @@ else{
 draw();
 clear(true);
 
-var currentUI = selectPw;
-currentUI.start();
+var currentUI;
+selectPw.start();
 
 
-const express = require('express')
+
+const express = require('express');
+var bodyParser = require('body-parser')
+app.use(bodyParser.json({ type: 'application/*+json' }))
+
+var unlocked = false;
 const app = express()
 
-app.get('/', (req, res) => {
-	console.log(req.params);
-	res.send('Hello World!')
+app.post('/', async (req, res) => {
+	console.log(req.body);
+	if(!unlocked){
+		clear(false);
+		await delay(3000);
+		drawText(0,0,"click to unlock");
+		res.send('locked');
+		return 
+
+	}
+
+	const confirm = new ConfirmationMessage({
+		title: "sign?",
+		text: "Transaction data",
+		onSelect: async (yn)=>{
+				if(yn == 'Y'){
+					// proceed
+					currentUI = null;
+				}
+				else {
+					// restart process
+					res.send("signed transaction.");
+					currentUI = null;
+				}
+
+			}
+	});
+	
 })
 // return public keys
 
