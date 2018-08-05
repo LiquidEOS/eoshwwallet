@@ -137,6 +137,8 @@ async function init(){
 	}
 	// sendPixelMatrix(0,0,displaySize.width,displaySize.height);
 //	clear(false);
+	draw();
+
 	await splash();
 }
 
@@ -467,8 +469,8 @@ else{
 	process.stdin.setRawMode(true);
 	process.stdin.resume();
 }
-draw();
-clear(true);
+
+
 
 var currentUI;
 
@@ -683,6 +685,7 @@ var enterPw = new InputMessage({
 
 var passwordExist = fs.existsSync('/home/pi/wallet.inited');
 init().then(()=>{
+	clear(true);
 	if(passwordExist){
 		enterPw.start();
 	}
