@@ -384,7 +384,7 @@ async function genShowSeed(pw){
 		await showSeed(words);
 		clear(false);
 		console.log('showing seed again');
-		drawText(3,3,"seed again:", true);
+		drawText(3,3,"showing seed again:", true);
 		await delay(4000);
 		await showSeed(words);
 
@@ -587,8 +587,6 @@ app.post('/', async (req, res) => {
 
 					clear(false);
 					drawText(0,0,"signed");
-					await delay(10000);
-					clear(false);
 					res.send("signed transaction.");
 					currentUI = null;
 				}
@@ -596,8 +594,6 @@ app.post('/', async (req, res) => {
 					// restart process
 					clear(false);
 					drawText(0,0,"rejected");
-					await delay(10000);
-					clear(false);
 					res.send("rejected transaction.");
 					
 					currentUI = null;
