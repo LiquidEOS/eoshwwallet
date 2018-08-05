@@ -6,22 +6,40 @@ const { padImageData, createBitmapFile } = require('./bitmap');
 var BDF = new bdf();
 var BDFBig = new bdf();
 var gpiop = gpio.promise;
-gpio.setMode(gpio.MODE_BCM)
+var http = require('http');
 
 var bg1 = "Qk3eDwAAAAAAAD4AAAAoAAAAegAAAPoAAAABAAEAAAAAAAAAAAASCwAAEgsAAAIAAAACAAAA/////wAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAtoAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAD///gAAAAAAAAAAAAAAAAD///+AAAAAAAAAAAAAAAAD////4AAAAAAAAAAAAAAAB/////AAAAAAAAAAAAAAAB/////4AAAAAAAAAAAAAAA//////AAAAAAAAAAAAAAAf/////4AAAAPAAAAAAAAAf//9///AAAAH4AAAAAAAAP//wD//4AAAD/AAAAAAAAD//AAD//AAAD/4AAAAAAAD//gAAf/wAAA//AAAAAAAA//gAAD/+AAAP/wAAAAAAAf/wAAAP/wAAB/8AAAAAAAP/4AAAB/8AAAP/AAAAAAAH/8AAAAP/gAAB/4AAAAAAB/8AAAAD/8AAAf+AAAAAAA//AAAAAf/AAAD/gAAAAAAP/gAAYAD/4AAA/4AAAAAAH/wAAHwA//AAAP+AAAAAAB/4AAB+AH/wAAD/gAAAAAA/+AAAfwA/+AAA/4AAAAAAP/AAAH+AH/wAAP+AAAAAAH/gAAB/gB/+AAH/gAAAAAB/4AAAf4AP/gAB/4AAAAAAf+AAAP+AD/+AA/8AAAAAAH/AAAD/gAf/wAf/AAAAAAD/wAAB/4AD//AP/wAAAAAA/8AAA/+AAf////4AAAAAAP+AAAP/AAH////+AAAAAAD/gAAH/wAA/////AAAAAAA/4AAD/4AAH////gAAAAAAP+AAB/+AAA////wAAAAAAD/gAA//AAAH///8AAAAAAB/8AAf/gAAAf//8AAAAAAAP+AAP/4AAAD//8AAAAAAAD/wAP/8AAAAP/+AAAAAAAAf+AP/+AAAAAv8AAAAAAAAP/6f//AAAAAAAAAAAAAAAB/////gAAAAAAAAAAAAAAAf////wAAAAAAAAAAAAAAAD////4AAAAAAAAAAAAAAAAf///8AAAAAAAAAAAAAAAAD///8AAAAAAAAAAAAAAAAA///+AAAAAAAAAAAAAAAAAD//+AAAAAAKAAAAAAAAAAAP/+AAAAAH//AAAAAAAAAAAv4AAAAAP///AAAAAAAAAAAAAAAAAf///8AAAAAAAAAAAAAAAAf////gAAAAAAAAAAAAAAAf////+AAAAAAAAAAAAAAAf/////wAAAAAAAAAAAAAAH/////+AAAAAAAAAAAAAAH//////wAAAAAAAAAAAAAD//////+AAAAAAAAAAAAAA///93//gAAAAAAAAAAAAA//+AAf/8AAAAAAAAAAAAAP/8AAA//AAAAAAAAAAAAAH/4AAAH/4AAAAAAAAAAAAB/8AAAAf+AAAAAAAAAAAAA/8AAAAH/gAAAAAAAAAAAAP+AAAAA/8AAAAAAAAAAAAD/AAAAAH/AAAAAAAAAAAAA/wAAAAB/wAAAAAAAAAAAAP8AAAAAP8AAAAAAAAAAAAD/AAAAAH/AAAAAAAAAAAAA/4AAAAA/wAAAAAAAAAAAAP/AAAAAP8AAAAAAAAAAAAD/9AAAAD/AAAAAAAAAAAAA//8AAAA/wAAAAAAAAAAAAH//gAAAP8AAAAAAAAAAAAA//wAAAH/AAAAAAAAAAAAAP/8AAAB/gAAAAAAAAAAAAB//AAAAf4AAAAAAAAAAAAAH/gAAAP+AAAAAAAAAAAAAA/4AAAH/AAAAAAAAAAAAAABQAAAB/wAAAAAAAAAAAAAAAAAAA/8AAAAAAAAAAAAAAAAAAA/+AAAAAAAAAAAAAAAAAAAf/gAAAAAAAAAAAAAAAAAE3/wAAAAAAAAAAAAAAAAA///4AAAAAAAAAAAAAAAAH///8AAAAAAAAAAAAAAAAD////AAAAAAAAAAAAAAAAH////4AAAAAAAAAAAAAAAH/////AAAAAAAAAAAAAAAD/////4AAAAAAAAAAAAAAD//////AAAAAAAAAAAAAAB//////4AAAAAAAAAAAAAA//////+AAAAAAAAAAAAAAf//0A//wAAAAAAAAAAAAAP//AAB/8AAAAAAAAAAAAAH//AAAP/AAAAAAAAAAAAAB/+AAAB/wAAAAAAAAAAAAA//AAAAP8AAAAAAAAAAAAAf/gAAAD/AAAAAAAAAAAAAH/gAAAA/wAAAAAAAAAAAAD/wAAAAP8AAAAAAAAAAAAA/8AAAAD/AAAAAAAAAAAAAf+AAAAB/gAAAAAAAAAAAAH/AAAAA/4AAAAAAAAAAAAB/wAAAAf8AAAAAAAAAAAAA/4AAAAP/AAAAAAAAAAAAAP+H/7u//gAAAAAAAAAAAAD/H/////wAAAAAAAAAAAAA/w/////8AAAAAAAAAAAAAP8f/////gAAAAAAAAAAAAD+D/////8AAAAAAAAAAAAA/w//////AAAAAAAAAAAAAP4P/////4AAAAAAAAAAAAD/B//////AAAAAAAAAAAAA/gP/////wAAAAAAAAAAAoH8AqqtP/8AAAAAAAAAAA/h/AAAAAP/AAAAAAAAAAAP4DAAAAAB/wAAAAAAAAAAB/gAAAAAAP8AAAAAAAAAAA/wAAAAAAD/AAAAAAAAAAAH+AAAAAAA/wAAAAAAAAAAD/gAAAAAAf4AAAAAAAAAAAf4AAAAAAH+AAAAAAAAAAAP+AAAAAAD/gAAAAAAAAAAB/gAAAAAD/wAAAAAAAAAAA/4AAAAAD/4AAAAAAAAAAAH+AAAAAH/+AAAAAAAHAAAB/gAAAA///AAAAAAAB/////////////gAAAAAAAf////////////4AAAAAAAP/////////////AAAAAAAB/////////////8AAAAAAAf/////////////AAAAAAAH/////////////4AAAAAAB/////////////+AAAAAAAP/////////////wAAAAAAB/////////////8AAAAAAAAhCRf4gQERCJf/AAAAAAAAAAAP8AAAAAAB/wAAAAAAAAAAD/gAAAAAAf8AAAAAAAAAAAf4AAAAAAD/AAAAAAAAAAAP+AAAAAAA/wAAAAAAAAAAB/AAAAAAAP8AAAAAAAAAAA/4AAAAAAH+AAAAAAAAAAAP+AAAAAAD/gAAAAAAAAAAB/gAAAAAB/4AAAAAAAAAAA/4AAAAABf8AAAAAAAAAAAH+AAAAAB/+AAAAAAACAAAB/gAAAAH//AAAAAAAB7VKq/6UyqqX//gAAAAAAAf////////////wAAAAAAAH/////////////AAAAAAAD/////////////4AAAAAAAf/////////////AAAAAAAH/////////////4AAAAAAB/////////////+AAAAAAAP/////////////wAAAAAAB/////////////8AAAAAAAP3d3/7bt7e3f//AAAAAAAAAAAH+AAAAAAD/wAAAAAAAAAAD/gAAAAAAf8AAAAAAAAAAA/4AAAAAAD/AAAAAAAAAAAP+AAAAAAA/wAAAAAAAAAAB/gAAAAAAP8AAAAAAAAAAAf4AAAAAAD/AAAAAAAAAAAP+AAAAAAB/gAAAAAAAAAAB/gAAAAAA/4AAAAAAAAAAAf4AAAAAA/+AAAAAAAAAAAH+AAAAAAv+AAAAAAAAAAAB/gAAAEQ//gAAAAAAAAAAAf4AAD////wAAAAAAAAAAAH+AAH////4AAAAAAAAAAAB/gAP////8AAAAAAAAAAAAf4AP////8AAAAAAAAAAAAH+AP/////AAAAAAAAAAAAD/gH/////4AAAAAAAAAAAAfwD//////AAAAAAAAAAAAP+D//////4AAAAAAAAAAAB/g///////AAAAAAAAAAAA/4f//9///4AAAAAAAAAAAH+P/+AH//+AAAAAAAAAAAD/H/8AB///wAAAAAAAAAAA/5/8AAfx/+AAAAAAAAAAAP4/8AAf8P/gAAAAAAAAAADQP+AAP+B/4AAAAAAAAAAAAD/AAH/gP/AAAAAAAAAAAAA/wAD/4B/wAAAAAAAAAAAAP8AD/8Af8AAAAAAAAAAAAD/gD/+AD/AAAAAAAAAAAAA/////AA/wAAAAAAAAAAAAP////wAP8AAAAAAAAAAAAD////4AD/AAAAAAAAAAAAAf///8AA/wAAAAAAAAAAAAH///8AAP8AAAAAAAAAAAABf//+AAD/AAAAAAAAAAAAAP///AAB/wAAAAAAAAAAAAA///AAAP4AAAAAAAAAAAAAH/+AAAH+AAAAAAAAAAAAAAPcAAAD/gAAAAAAAAAAAAAAAAAAA/4AAAAAAAAAAAAAAAAAAAf8AAAAAAAAAAAAAAAAAAAP/AAAAAAAAAAAAAAAAAAAH/wAAAAAAAAAAAAPgAAAAH/4AAAAAAAAAAAAP+AAAAD/8AAAAAAAAAAAAD/wAAAH/+AAAAAAAAAAAAB/+AAAP//gAAAAAAAAAAAAf/wAL///wAAAAAAAAAAAAH///////wAAAAAAAAAAAAD///////4AAAAAAAAAAAAAf//////8AAAAAAAAAAAAAH//////4AAAAAAAAAAAAAB//////8AAAAAAAAAAAAAAP/////wAAAAAAAAAAAAAAB////8AAAAAAAAAAAAAAAAP//8gAAAAAAAAAAAAAAAAB/8AAAAAAAAAAAAAAAAAAAH/AAAAAAAAAAAAAAAAAAAB/wAAAAAAAAAAAAAAAAAAAf8AAAAAAAAAAAAAAAAAAAH/AAAC6AAAAAAAAAAAAAAB/wAA//+AAAAAAAAAAAAAAP8AD///4AAAAAAAAAAAAAH/AP////AAAAAAAAAAAAAB/wf////4AAAAAAAAAAAAAf8f/////AAAAAAAAAAAAAH///////4AAAAAAAAAAAAB///////+AAAAAAAAAAAAAf///////wAAAAAAAAAAAAD/////f/8AAAAAAAAAAAAB////QAf/AAAAAAAAAAAAAP//6AAB/wAAAAAAAAAAAAB//wAAAP8AAAAAAAAAAAAAP/AAAAD/AAAAAAAAAAAAAA8AAAAA/wAAAAAAAAAAAAAAAAAAAP8AAAAAAAAAAAAAAAAAAAH/AAAAAAAAAAAAAAAAAAAB/gAAAAAAAAAAAAAAAAAAA/4AAAAAAAAAAAAAAAAAAAf8AAAAAAAAAAAAAAAAAAAf/AAAAAAAAAAAAAAAAAAA//gAAAAAAAAAAAAAAAAAB//wAAAAAAAAAAAAAAAAAH//4AAAAAAAAAAAAAAAAAD//8AAAAAAAAAAAAAAAAAB//8AAAAAAAAAAAAAAAAAAP/+AAAAAAAAAAAAAAAAAAD/+AAAAAAAAAAAAAAAAAAAf8AAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 var bg2 = "Qk3eDwAAAAAAAD4AAAAoAAAAegAAAPoAAAABAAEAAAAAAAAAAAASCwAAEgsAAAIAAAACAAAA/////wAAAP/////////////////////A///////SX///////////wP/////+AAP//////////8D/////8AAAf//////////A/////8AAAB//////////wP////8AAAAH/////////8D////+AAAAA//////////A////+AAAAAH/////////wP///+AAAAAA/////////8D////gAAAAAH////4////A////wAACAAA////4H///wP///wAAX+AAH///4A///8D///4AAf/8AB///+AH///A///+AAf//gAP///AB///wP///AAf//8AB///wAP//8D///gAP///wAP//+AD///A///wAP///+AD///wA///wP//4AD////gAf//+AH//8D//+AB////8AD///gB///A///AB/////gA///8Af//wP//wAf//3/8AH///AH//8D//4AP//4P/AA///wB///A//+AH//+B/4AP//8Af//wP//AB///gP/AB///AH//8D//wA///4B/4AP//wB///A//4AP//+Af+AB//4Af//wP/+AH///gH/wAP/+AH//8D//gB///wB/8AB//AD///A//4A///8Af/gAP/gA///wP/8AP//+AH/8AA/gAf//8D//AD///AD//gABAAH///A//wB///wA//8AAAAB///wP/8Af//4AP//AAAAA///8D//AH//8AH//4AAAAf///A//wB//+AB///AAAAP///wP/8Af//AA///8AAAH///8D//AH//gAf///gAAD////A//wA//wAH///8AAB////wP/8AP/wAD////wAD////8D//AB/wAB/////gF/////A//4ACgAA////////////wP/+AAAAAf///////////8D//gAAAAP////////////A//8AAAAH////////////wP//gAAAD////////////8D//8AAAD/////////////A///gAAB/////////////wP//8AAB//////1//////8D///wAB/////4AA//////A////gH/////wAAB/////wP//////////gAAAH////8D//////////gAAAAP////A//////////gAAAAB////wP/////////wAAAAAP///8D/////////wAAAAAB////A/////////4AAAAAAP///wP////////8AAAAAAD///8D/////////AAABAAAf///A/////////AAB//gAD///wP////////wAD///AA///8D////////4AH///8AH///A////////+AD////AB///wP////////AD////8Af//8D////////wB/////AD///A////////8A/////4A///wP////////AP////+AP//8D////////wD/////wD///A////////8A/////8A///wP////////AH/////AP//8D////////wB/////wD///A////////8AC////8A///wP////////AAD////AP//8D////////4AA////wD///A////////+AAH///4A///wP////////wAD///+Af//8D////////+AA////gD///A/////////4Af///wB///wP/////////AH///4A///8D/////////+v///+AP///A///////////////AD///wP//////////////gB///8D//////////////gAf///A/////////////9QAP///wP///////////+AAAH///8D///////////8AAAD////A///////////0AAAA////wP//////////8AAAAH///8D//////////4AAAAA////A//////////8AAAAAH///wP/////////8AAAAAA///8D/////////+AAAAAAH///A//////////AAAAAAB///wP/////////gAAN/AAf//8D/////////wAA//+AD///A/////////4AA///wA///wP////////+AB///+AP//8D/////////AA////wD///A/////////gAf///8A///wP////////4Af////AP//8D////////8AP////wD///A/////////AD////8A///wP////////wB////+Af//8D////////4A/////AH///A////////+AP////gD///wP////////gH////wA///8D////////wBwAoRAAf///A////////8A8AAAAAP///wP////////AOAAAAAD///8D////////wDwAAAAAf///A////////8A8AAAAAD///wP///////+AfAAAAAAf//8D////////wDwAAAAAH///A////////8A+AAAAAB///wP////////AfwAAAAAP//8D//////+v4D/VWqyAD///A///////g+A/////wA///wP//////wD8/////+AP//8D//////+Af//////wD///A///////AP//////8A///wP//////4B///////AP//8D//////8Af//////gD///A///////gH//////4B///wP//////4B//////8Af//8D//////8Af/////8AP///A///////gH/////8AD///wP//////4B/////4AD///8D//4///+Af////AAA////A//+AAAAAAAAAAAAAf///wP//gAAAAAAAAAAAAH///8D//wAAAAAAAAAAAAA////A//+AAAAAAAAAAAAAD///wP//gAAAAAAAAAAAAA///8D//4AAAAAAAAAAAAAH///A//+AAAAAAAAAAAAAB///wP//wAAAAAAAAAAAAAP//8D//+AAAAAAAAAAAAAD///A////f3vAH//fu9ugA///wP//////4B//////+AP//8D//////8Af//////gD///A///////AH//////8A///wP//////4B///////AP//8D//////8Af//////wD///A///////gH//////4B///wP//////wB//////8Af//8D//////+Af//////AH///A///////AH/////+AD///wP//////4B/////+AB///8D//9///+Af////8AA////A//+FSragFra2tgAAf///wP//gAAAAAAAAAAAAP///8D//4AAAAAAAAAAAAA////A//8AAAAAAAAAAAAAH///wP//gAAAAAAAAAAAAA///8D//4AAAAAAAAAAAAAH///A//+AAAAAAAAAAAAAB///wP//wAAAAAAAAAAAAAP//8D//+AAAAAAAAAAAAAD///A///whEIACEkUkSRAA///wP//////4B//////8AP//8D//////8Af//////gD///A///////AH//////8A///wP//////wB///////AP//8D//////+Af//////wD///A///////gH//////8A///wP//////4B//////+Af//8D//////+Af//////AH///A///////gH//////AD///wP//////wB//////gA///8D//////+Af///7fAAf///A///////gH//8AAAAP///wP//////4B//4AAAAH///8D//////+Af/wAAAAD////A///////gH/wAAAAD////wP//////4B/4AAAAA////8D//////8Af4AAAAAH////A///////gH8AAAAAA////wP//////wB8AAAAAAH///8D//////+AfAAAAAAA////A///////AHgAACAAAH///wP//////4BwAB/8AAB///8D//////8A4AD/+AAAP///A///////AGAD//AOAD///wP//////wHgD//gD4Af//8D//////8fwB//4A+AH///A////////8A//4AfwA///wP////////AP/8AP+AP//8D////////wD/8AD/gD///A////////8Af8AA/8A///wP////////AAAAA//AP//8D////////wAAAAP/wD///A////////8AAAAP/8A///wP////////gAAAD//AP//8D////////4AAAB//wD///A/////////AAAB//8A///wP////////wAAA///AP//8D/////////AAA///gH///A/////////4AB///4A///wP/////////yO///+Af//8D///////////////AH///A///////////////gD///wP//////////////wA///8D//////////////4AP///A////////wf////4AH///wP///////wB////8AD///8D///////8AP///4AB////A///////+AB///wAAf///wP///////gAP/oAAAP///8D///////4AAAAAAAP////A///////8AAAAAAAH////wP///////gAAAAAAD////8D///////4AAAAAAH/////A///////+AAAAAAD/////wP///////wAAAAAP/////8D///////+AAAAD///////A////////oAADf///////wP////////AD/////////8D////////4A//////////A////////+AP/////////wP////////gD/////////8D////////4A///9V/////A////////+AP/+gAB////wP////////gD/6AAAH///8D////////8A/4AAAA////A////////+APgAAAAH///wP////////gDAAAAAA///8D////////4AAAAAAAH///A////////+AAAAAAAB///wP////////gAAAAAAAP//8D////////8AAAAAgAD///A/////////AAAAv/wA///wP////////wAAF//+AP//8D////////+AAP///wD///A/////////4A////8A///wP////////+D/////AP//8D///////////////wD///A///////////////4A///wP//////////////+Af//8D///////////////AH///A///////////////gD///wP//////////////gA///8D//////////////gAf///A/////////////8AAP///wP////////////4AAH///8D////////////8AAD////A////////////+AAD////wP////////////wAB////8D////////////8AB/////A/////////////gD/////wP////////////8H/////8D////////////////////A";
 var bg3 = "Qk3eDwAAAAAAAD4AAAAoAAAAegAAAPoAAAABAAEAAAAAAAAAAAAlFgAAJRYAAAIAAAACAAAAAAAA///////////////////////////A//////4AAAAB////////wP///////////f///////8D///////////3////////A///////////9////////wP///////////f///////8D///////////3////////A///////////9////////wP///////////f///////8D///////////3////////A///////////9////////wP///////////f///////8D///////////3////////A///////////9////////wP///////////f///////8D///////////3////////A///////////9////////wP///////////f///////8D////////////////////A////////////////////wP///////////////////8D////////////////////A////////////////////wP///////////////////8D////////////////////A////////////////////wP/////+AAAAA////////8D////////////////////A////////////////////wP///////////////////8D////////////////////A////////////////////wP///////////////////8D////////////////////A////////////////////wP///////////////////8D////////4D//////////A////////z/n/////////wP///////z/+f////////8D///////7//7/////////A///////7///f////////wP//////9///7////////8D//////8////f////////A//////+/////////////wP//////f///+////////8D//////v/////////////A//////3////9////////wP/////7/////f///////8D/////9/////3////////A/////+//////////////wP/////f/////////////8D/////v//////////////A/////9//////////////wP/////v/////////////8D/////9/////3////////A//////v////9////////wP/////9/////f///////8D//////v/////////////A//////9////7////////wP//////v////f///////8D//////+////b////////A///////3///vf///////wP//////+f//37///////8D///////7//7/f///////A////////v/7/7///////wP///////+fz//f//////8D////////8H//7///////A////////////////////wP///////////////////8D////////////////////A////////////////////wP///////////////////8D////////////////////A////////////////////wP///////////////////8D//////gAAA//////////A//////////5/////////wP//////////n////////8D//////////+/////////A///////////3////////wP///////////////////8D///////////v////////A////////////////////wP///////////f///////8D///////////3////////A///////////9////////wP///////////////////8D////////////////////A///////////9////////wP///////////f///////8D///////////3////////A////////////////////wP//////////+////////8D////////////////////A///////////3////////wP//////////7////////8D//////////7/////////A//////////5/////////wP/////+AAAD/////////8D////////////////////A////////////////////wP///////////////////8D////////////////////A////////////////////wP///////////////////8D////////////////////A////////////////////wP///////////////////8D////////////////////A/////////////+//////wP/////+AAAAAf/gf////8D/////////////7f/////A/////////////+n/////wP/////////////z/////8D////////////////////A////////////////////wP///////////////////8D////////////////////A//////////////D/////wP/////////////uf////8D/////////////73/////A/////////////+5/////wP/////////////w/////8D//////AAAAAH/+f/////A//////3////9////////wP/////9/////f///////8D//////f////3////////A//////3////9/+f/////wP/////9/////f/g/////8D//////f////3//H/////A//////3////9/+H/////wP/////9/////f/j/////8D//////f////3/+H/////A//////3////9//h/////wP/////9/////f/j/////8D//////f////3////////A//////3////9////////wP///////////f///////8D//////v/////////////A//////7////7/+B/////wP/////+////+//of////8D//////3////v/63/////A//////9////3/+9/////wP//////v///7////////8D//////9///+/////////A///////v///f////////wP//////9///P////////8D///////n//P//4H/////A///////+P/P//+3/////wP///////8Af///o/////8D/////////////4n/////A////////////////////wP///////////////////8D////////////////////A////////////////////wP/////////////gf////8D/////////////4H/////A/////////////+t/////wP/////////////vf////8D////////////////////A////////////////////wP///////////////////8D////////////////////A/////////////+B/////wP/////////////uf////8D/////////////73/////A/////////////+Z/////wP/////4AAAAA//w/////8D/////+AAAAAP////////A//////j/8f/z////////wP/////5//v/8////////8D/////+f/7//P////////A//////n/+//z////////wP/////5//v/8////////8D/////+f/7//P////////A//////n/+//z////////wP/////5//v/8////////8D/////+f/7//P/4H/////A//////n/+//z/+t/////wP/////5//v/8//rf////8D/////+f/7//P/4P/////A//////n/+//z////////wP/////5//P/8////////8D/////+f/7//P////////A//////n////z////////wP/////5////8//v/////8D//////f////P/8//////A//////////////h/////wP/////////////j/////8D/////////////7//////A////////////////////wP///////////////////8D////////gf//////////A///////+AAf/////////wP//////+AAB/////////8D//////+D/4P/////////A///////D//w/////////wP//////j//+H////////8D//////x///x/////////A//////4///+P/+B/////wP/////+f///x//rf////8D//////H///+f/6H/////A//////z////n/+T/////wP/////8////8////////8D/////+f////P////////A//////n////z////////wP/////5////8////////8D/////+f////P//H/////A//////n////z//D/////wP/////5////8//n/////8D/////+f////P/8P/////A//////n////z//x/////wP/////8////8////////8D//////P///+f////////A//////x////n////////wP/////+f///x////////8D//////j///4//4H/////A//////8f//8f//P/////wP//////j//+H//5/////8D//////8P/+D///P/////A///////gf+D//+B/////wP//////+AAB/////////8D///////4AD//////////A////////4P//////////wP///////////////////8D/////////////8P/////A/////////////+Z/////wP/////////////vf////8D/////////////7n/////A//////////+f/+7/////wP//////4H//j////////8D//////4A//8f////////A//////8eH//n////////wP/////+P4//4//5/////8D//////H/P//P/4P/////A//////z/x//z/+5/////wP/////5/+f/8//vf////8D/////+f/j//P/7n/////A//////n/8//z//D/////wP/////5//P/8////////8D/////+f/x//P////////A//////n/+f/z////////wP/////5//n/4////////8D//////P/4/+f/4H/////A//////z//H/H/+D/////wP/////+f/w/j//t/////8D//////j/+AB//4H/////A//////9//wB///d/////wP/////////j/////////8D////////////////////A";
 var tst = "Qk22AAAAAAAAAD4AAAAoAAAAGwAAAB4AAAABAAEAAAAAAHgAAAASCwAAEgsAAAAAAAAAAAAAAAAAAP///wD////g////4P///+D////g////4P/B/+D/HP/g/35/4P7/v+D+/5/g/n/f4P8/3+D/n9/g/8/f4P/j3+D/+9/g///f4PB/v+Dn/7/g7/+/4O//v+Dv/7/g7/9/4O/+f+D3/P/g+/n/4PgD/+D////g////4P///+A=";
-
+const isDebug = process.env.DEBUG;
 function sendImage(x,y,image){
- return fetch('http://localhost:8000', { method: 'POST', body: JSON.stringify({"x":x, "y":y,"data":image}) }).catch(a=>{})
+	var host = 'localhost'
+	if(isDebug)
+		return fetch('http://'+host+':8000', { method: 'POST', body: JSON.stringify({"x":x, "y":y,"data":image}) }).catch(a=>{
+	 	console.log('err',a)
+	 });
+	else{
+		 var req = http.request({
+		  host:'[fe80::c71b:1b21:5588:351%43]',
+		  hostname:'fe80::c71b:1b21:5588:351%43',
+		  port:'8080',
+		  method:'POST',
+		  body: JSON.stringify({"x":x, "y":y,"data":image}),
+		  path:'/',
+		}, function(res){
+		  console.log('Got response:', res.statusCode, res.headers);
+		}).on('error', function(e){
+		  console.log('error:', e);
+		}).end();
+
+	}
+
 
 }
 BDF.loadSync('c64.bdf');
 BDFBig.loadSync('c64d.bdf');
 
-let selection = 0;
-let options = [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!'];
 let pixelMatrix = [];
 let pixelMatrixPrev = [];
 let displaySize = {height: 122, width: 250};
@@ -119,6 +137,7 @@ function init(){
 //	clear(false);
 }
 
+
 function drawPixel(x,y,c){
 	pixelMatrix[x][y] = c;
 }
@@ -160,60 +179,181 @@ function drawLine(x0,y0,x1,y1,c){
 		}
 }
 init();
-// clear();
-sendImage(0,selection * 32,bg3);
-//sendImage(0,selection * 32,bg2);
-sendImage(0,selection * 32,bg1);
-var showLast = false;
-var title = 'enter password';
-function drawOptions(){
-	//console.log("Enter Password");
-	clear(false);
-	drawText(3,3,title, true);
-	for(var i=0; i < options.length ; i++){
-		drawBox(3+ i * 13,15, 15 ,20,true, i === selection);
-//		if(i === selection)
-//			console.log("- ", options[i]);
-//		else 
-//			console.log("* ", options[i]);
-		drawText(3+i*13+1,25,options[i].toString(), i !== selection);
+sendImage(0,0,bg3);
+sendImage(0,0,bg1);
+class RebootTimer {
+	constructor(){		
+		var minutes = 1;
+		this.gracePeriod = 1000 * 60 * minutes;
+		this.resetTimer();
+		this.run();
+	}
+	resetTimer(){
+		this.lastUse = new Date().getTime();
+	}
+	run(){
+		if(isDebug)
+			return;
+		if(this.lastUse + this.gracePeriod < new Date().getTime()){
+			this.reboot();
+		}
+		else
+			setTimeout(this.run,10000);
+	}
+	reboot(){
+		require('child_process').exec('sudo /sbin/shutdown -r now', function (msg) { console.log(msg) });
 	}
 
-//	for(var i=0; i < password.length ; i++){
-	//
-	        var passwordToDraw = '';
-		if(password.length > 0){
-			if(showLast)
-				passwordToDraw = '*'.repeat(password.length-1) + password[password.length-1];
-			else 
-				passwordToDraw = '*'.repeat(password.length);
-		}
-		drawText(50,70,passwordToDraw,true);
-		//drawLine(35+ i * 40,45, 85+ i * 40 ,45,true, true);
-		//drawLine(35+ i * 40+25,40, 35+ i * 40- 25 ,50,true, true);
-//	}
-//	sendImage(0,selection * 20,tst);
 }
-
-function updateSelection(newSelection){
-	selection = newSelection;
-	//console.log("hovering over ", options[selection]);
-//	clear(true);
-	setTimeout(drawOptions,0);
-}
-
 
 var lastTimes = {};
+var wasBothClick = false;
+
+class InputMessage {
+	constructor(options){
+		this.input = "";		
+		this.showLast = false;
+		this.selection = 0;		
+		this.options = options;
+
+		
+	}
+	start(){
+		var this2 = this;
+		setTimeout(()=>{
+			this2.drawOptions();
+		},100);
+
+	}
+	L(){
+		var newSelection = this.selection -1;
+		if(newSelection < 0)
+			newSelection = this.options.choices.length-1;
+		this.updateSelection(newSelection);
+	}
+	R(){
+		var newSelection = this.selection +1;
+		if(newSelection >= this.options.choices.length)
+			newSelection = 0;
+		this.updateSelection(newSelection);
+
+	}
+	selectInput(){
+		this.options.onSelect(this.input);
+	}
+	B(){
+		this.showLast = false;
+		if(this.options.choices[this.selection] == '!'){		
+			this.selectInput(this.input);
+			this.input = "";
+			return;
+		}
+		else if(this.options.choices[this.selection] == '<'){
+			this.input = this.input.substr(0, this.input.length-1);
+		}
+		else{
+			this.input = this.input + this.options.choices[this.selection].toString();
+			this.showLast = true;
+		}		
+		this.drawOptions();
+	}
+	updateSelection(newSelection){
+		this.selection = newSelection;		
+		this.drawOptions();
+	}
+
+	drawOptions(){				
+		const {title,choices,hide} = this.options;
+		clear(false);
+		drawText(3,3,title, true);
+		for(var i=0; i < choices.length ; i++){
+			drawBox(3+ i * 13,15, 15 ,20,true, i === this.selection);
+			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
+		}
+
+        var textToDraw = '';
+		if(this.input.length > 0){
+			if(hide){
+				if(this.showLast)
+					textToDraw = '*'.repeat(this.input.length-1) + this.input[this.input.length-1];
+				else 
+					textToDraw = '*'.repeat(this.input.length);
+			}
+			else{
+				textToDraw =  this.input;
+			}
+		}
+		drawText(50,70,textToDraw,true);
+	}
+}
+var selectPw = new InputMessage({
+	title: "choose password",
+	onSelect: async (pw)=>{
+		
+		clear(false);
+		drawText(3,3,"generating seed", true);
+		await delay(2000);
+		// showing seed.
+
+		drawText(3,3,"showing seed:", true);
+		await delay(2000);
+		const examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
+		const words = examplePhrase.split(' ');
+		for (var i = 0; i >= words.length - 1; i++) {
+			var word = words[i];
+			clear(false);
+			drawText(3,3,i + ". " + word, true);
+			await delay(2000);
+		}
+		drawText(3,3,"seed again:", true);
+		await delay(2000);
+		for (var i = 0; i >= words.length - 1; i++) {
+			var word = words[i];
+			clear(false);
+			drawText(3,3,i + ". " + word, true);
+			await delay(2000);
+		}
+
+
+
+		clear(false);
+		drawText(3,3,"enter pw again", true);
+		await delay(1000);
+		currentUI = enterPw;
+		currentUI.start();
+	},
+	hide: true,
+	choices: [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!']
+});
+
+const delay = time => new Promise(res=>setTimeout(()=>res(),time));
+var rebootTimer;
+var enterPw = new InputMessage({
+	title: "enter password",
+	hide: true,
+	onSelect: async (pw)=>{
+		clear(false);
+		// verify password
+		drawText(3,3,"verifying", true);
+		await delay(2000);
+		clear(true);
+		drawText(3,3,"unlocked", true);
+		await delay(3000);
+		clear(false);
+		// unlocked
+		rebootTimer = new RebootTimer();
+	},
+	choices: [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!']
+});
+
+
 function buttonL(){
 	if(lastTimes.l){
 		if(lastTimes.l + 250 > new Date().getTime())
 			return;
 	}
-
-	var newSelection = selection -1;
-	if(newSelection < 0)
-		newSelection = options.length-1;
-	updateSelection(newSelection);
+	currentUI.L();
+	
 	// sendImage(0,0,bg2);
 	lastTimes.l = new Date().getTime();
 }
@@ -223,16 +363,11 @@ function buttonR(){
 		if(lastTimes.r + 250 > new Date().getTime())
 			return;
 	}
-
-	var newSelection = selection +1;
-	if(newSelection >= options.length)
-		newSelection = 0;
-	updateSelection(newSelection);
+	currentUI.R();
 	lastTimes.r = new Date().getTime();
 	//sendImage(0,0,bg2);
 }
-var selectPassword;
-var password = "";
+
 function buttonBoth(){
 	if(lastTimes.b){
 		if(lastTimes.b + 250 > new Date().getTime())
@@ -241,25 +376,10 @@ function buttonBoth(){
 	console.log("selected", options[selection]);
 	wasBothClick = true;
 	lastTimes.b = new Date().getTime();
-	showLast = false;
-	if(options[selection] == '!'){		
-		selectPassword(password);
-		password = "";
-		return;
-	}
-	else if(options[selection] == '<'){
-		password = password.substr(0,password.length-1);
-	}
-	else{
-		password = password + options[selection].toString();
-		showLast = true;
-	}
-	//drawLine(10,40,90,90,true);
-	drawOptions();
+	currentUI.B();
 	//sendImage(0,0,bg1);
 }
 var state = {};
-var wasBothClick = false;
 
 
 gpio.on('change', function(channel, value) {
@@ -302,19 +422,50 @@ gpio.on('change', function(channel, value) {
 
 	}
 });
-gpio.setup(19, gpio.DIR_IN, gpio.EDGE_BOTH);
-gpio.setup(26, gpio.DIR_IN, gpio.EDGE_BOTH);
-draw();
-
-
-clear(true);
-setTimeout(drawOptions,500);
-selectPassword = (pw)=>{
-	clear();
-
-	drawText(3,3,"Selected", true);
-	title = "Execute transaction";
-	options = ['Y','N'];
+if(!isDebug){
+	gpio.setMode(gpio.MODE_BCM);
+	gpio.setup(19, gpio.DIR_IN, gpio.EDGE_BOTH);
+	gpio.setup(26, gpio.DIR_IN, gpio.EDGE_BOTH);
 	
-	//
+
 }
+else{
+	var keypress = require('keypress');
+
+	// make `process.stdin` begin emitting "keypress" events
+	keypress(process.stdin);
+	 
+	// listen for the "keypress" event
+	process.stdin.on('keypress', function (ch, key) {	  
+	  if (key) {
+	  	if (key.ctrl && key.name == 'c') {
+		    process.exit(1);
+		}
+	  	else if(key.name == 'space')
+	    	buttonBoth();
+	    else if(key.name == 'x')
+	    	buttonR();
+	    else if(key.name == 'z')
+	    	buttonL();
+	  }
+	});
+	 
+	process.stdin.setRawMode(true);
+	process.stdin.resume();
+}
+draw();
+clear(true);
+
+var currentUI = selectPw;
+currentUI.start();
+
+
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => res.send('Hello World!'))
+// return public keys
+
+// sign transaction
+
+app.listen(3000, () => console.log('Wallet listening on port 3000!'))
