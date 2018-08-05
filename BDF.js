@@ -215,8 +215,8 @@ BDF.prototype = {
             var byte = parseInt(fontLines[i + 1], 16);
             currentChar.bytes.push(byte);
             currentChar.bitmap[row] = [];
-            for (var bit = 7; bit >= 0; bit--) {
-              currentChar.bitmap[row][7 - bit] = byte & (1 << bit) ? 1 : 0;
+            for (var bit = this.meta.boundingBox.width-1; bit >= 0; bit--) {
+              currentChar.bitmap[row][this.meta.boundingBox.width-1 - bit] = byte & (1 << bit) ? 1 : 0;
             }
           }
           break;
