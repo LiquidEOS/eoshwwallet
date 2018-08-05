@@ -139,7 +139,7 @@ async function init(){
 //	clear(false);
 	draw();
 
-	await splash();
+	
 }
 
 
@@ -720,6 +720,7 @@ init().then(()=>{
 		enterPw.start();
 	}
 	else{
+		await splash();
 		startSelectPW();
 	}
 });
