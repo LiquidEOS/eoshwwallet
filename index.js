@@ -583,6 +583,12 @@ async function genShowSeed(pw){
 		clear(false);
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
+		if(true){
+			clear(false);
+			currentUI = null;
+			unlockWallet(genMnemonicWithPass(pw));
+			return;
+		}
 		await delay(4000);		
 		const words = await genSeed(pw);
 		await showSeed(words);
