@@ -301,12 +301,10 @@ var selectPw = new InputMessage({
 		await delay(2000);
 		const examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
 		const words = examplePhrase.split(' ');
-		console.log("words",words);
 		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
 			clear(false);
-			drawText(3,3,i + ". " + word, true);
-			console.log('showing word:', i + ". " + word);
+			drawText(3,3,(i+1) + ". " + word, true);
 			await delay(4000);
 		}
 		clear(false);
@@ -316,8 +314,7 @@ var selectPw = new InputMessage({
 		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
 			clear(false);
-			drawText(3,3,i + ". " + word, true);
-			console.log('showing word again:', i + ". " + word);
+			drawText(3,3,(i+1) + ". " + word, true);
 			await delay(4000);
 		}
 
