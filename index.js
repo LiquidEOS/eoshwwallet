@@ -15,9 +15,9 @@ var tst = "Qk22AAAAAAAAAD4AAAAoAAAAGwAAAB4AAAABAAEAAAAAAHgAAAASCwAAEgsAAAAAAAAAA
 const isDebug = process.env.DEBUG;
 function sendImage(x,y,image){
 	var host = 'localhost'
-	if(isDebug)
+	if(!isDebug)
 		return fetch('http://'+host+':8000', { method: 'POST', body: JSON.stringify({"x":x, "y":y,"data":image}) }).catch(a=>{
-	 	console.log('err',a)
+	 	
 	 });
 	else{
 		 var req = http.request({
@@ -365,7 +365,6 @@ function buttonR(){
 	}
 	currentUI.R();
 	lastTimes.r = new Date().getTime();
-	//sendImage(0,0,bg2);
 }
 
 function buttonBoth(){
@@ -373,11 +372,9 @@ function buttonBoth(){
 		if(lastTimes.b + 250 > new Date().getTime())
 			return;
 	}
-	console.log("selected", options[selection]);
 	wasBothClick = true;
 	lastTimes.b = new Date().getTime();
 	currentUI.B();
-	//sendImage(0,0,bg1);
 }
 var state = {};
 
