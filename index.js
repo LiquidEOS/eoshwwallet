@@ -348,10 +348,7 @@ class ConfirmationMessage {
 			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
 		}
 
-        var textToDraw = '';
-		if(this.input.length > 0){
-				textToDraw = text;
-		}
+        var textToDraw = text;
 		drawText(50,70,textToDraw,true);
 	}
 }
@@ -362,13 +359,13 @@ var selectPw = new InputMessage({
 		
 		clear(false);
 		drawText(3,3,"generating seed", true);
-		await delay(2000);
+		await delay(4000);
 		// showing seed.
-		
+			
 		clear(false);
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
-		await delay(2000);
+		await delay(4000);
 		let examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
 		examplePhrase = "hello";
 		const words = examplePhrase.split(' ');
@@ -381,7 +378,7 @@ var selectPw = new InputMessage({
 		clear(false);
 		console.log('showing seed again');
 		drawText(3,3,"seed again:", true);
-		await delay(2000);
+		await delay(4000);
 		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
 			clear(false);
