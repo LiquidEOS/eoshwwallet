@@ -17,26 +17,9 @@ var tst = "Qk22AAAAAAAAAD4AAAAoAAAAGwAAAB4AAAABAAEAAAAAAHgAAAASCwAAEgsAAAAAAAAAA
 const isDebug = process.env.DEBUG;
 function sendImage(x,y,image){
 	var host = 'localhost'
-	if(!isDebug)
-		return fetch('http://'+host+':8000', { method: 'POST', body: JSON.stringify({"x":x, "y":y,"data":image}) }).catch(a=>{
+	return fetch('http://'+host+':8000', { method: 'POST', body: JSON.stringify({"x":x, "y":y,"data":image}) }).catch(a=>{
 	 	
-	 });
-	else{
-		 var req = http.request({
-		  host:'[fe80::c71b:1b21:5588:351%43]',
-		  hostname:'fe80::c71b:1b21:5588:351%43',
-		  port:'8080',
-		  method:'POST',
-		  body: JSON.stringify({"x":x, "y":y,"data":image}),
-		  path:'/',
-		}, function(res){
-		  console.log('Got response:', res.statusCode, res.headers);
-		}).on('error', function(e){
-		  console.log('error:', e);
-		}).end();
-
-	}
-
+	 });	
 
 }
 BDF.loadSync('c64.bdf');
@@ -188,13 +171,15 @@ function drawLine(x0,y0,x1,y1,c){
 
 async function splash(){
 	await sendImage(0,0,bg3);
-	sendPixelMatrix();	
+	await sendPixelMatrix();	
 	await delay(2000);
 	await sendImage(0,0,bg1);
-	sendPixelMatrix();		
-	clear(true);
-	sendPixelMatrix();	
 	await delay(2000);
+	await sendPixelMatrix();
+	clear(false);
+	await sendPixelMatrix();
+	clear(true);
+	await sendPixelMatrix();	
 }
 class RebootTimer {
 	constructor(){		
