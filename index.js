@@ -497,8 +497,7 @@ app.get('/', async (req, res) => {
 	}
 	res.send(publicKey);
 });
-app.post('/', async (req, res) => {
-	console.log(req.body);
+app.post('/', async (req, res) => {	
 	if(!unlocked){
 		clear(false);
 		drawText(0,0,"click to unlock", true);
@@ -511,8 +510,8 @@ app.post('/', async (req, res) => {
 		text2: req.body.text2 || "",
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
-					await delay(500);
 					clear(false);
+					await delay(600);
 					var signature = ecc.sign(Buffer.from(req.body.data, 'base64'), privateKey);
 
 					clear(false);
