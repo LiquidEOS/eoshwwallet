@@ -423,11 +423,11 @@ var enterPw = new InputMessage({
 		clear(false);
 		// verify password
 		drawText(3,3,"verifying", true);
-		await delay(2000);
+		await delay(4000);
 		clear(true);
-		drawText(3,3,"unlocked", true);
-		await delay(3000);
-		clear(false);
+		drawText(3,3,"unlocked", false);
+		// await delay(4000);
+		// clear(false);
 		// unlocked
 		rebootTimer = new RebootTimer();
 	},
