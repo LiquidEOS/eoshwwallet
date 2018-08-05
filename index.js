@@ -363,8 +363,8 @@ class ConfirmationMessage {
 			drawBox(3+ i * 13,15, 15 ,20,true, i === this.selection);
 			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
 		}        
-		drawText(20,65,text,true);
-		drawText(20,80,text2,true);
+		drawText(5,65,text,true);
+		drawText(5,80,text2,true);
 	}
 }
 
