@@ -11,10 +11,15 @@
   "license": "ISC",
   "dependencies": {
     "bdf": "^1.0.1",
+    "bip39": "^2.5.0",
     "body-parser": "^1.18.3",
+    "eosjs-ecc": "^4.0.2",
     "express": "^4.16.3",
+    "hdkey": "^1.0.0",
     "keypress": "^0.2.1",
     "node-fetch": "^2.1.2",
-    "rpi-gpio": "^1.0.0"
+    "rpi-gpio": "^1.0.0",
+    "scrypt-async": "^2.0.0",
+    "wif": "^2.0.6"
   }
 }
