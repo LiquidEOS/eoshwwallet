@@ -562,11 +562,11 @@ selectPw.start();
 
 const express = require('express');
 var bodyParser = require('body-parser')
-app.use(bodyParser.json({ type: 'application/*+json' }))
+
 
 var unlocked = false;
 const app = express()
-
+app.use(bodyParser.json({ type: 'application/*+json' }))
 app.post('/', async (req, res) => {
 	console.log(req.body);
 	if(!unlocked){
