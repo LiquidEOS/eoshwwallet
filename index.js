@@ -593,7 +593,7 @@ async function genShowSeed(pw){
 					clear(false);
 					// verify password
 					drawText(3,3,"verifying", true);
-					await delay(4000);
+					await delay(500);
 
 					// await delay(4000);
 					// clear(false);
@@ -705,7 +705,7 @@ var enterPw = new InputMessage({
 		clear(false);
 		// verify password
 		drawText(3,3,"verifying", true);
-		await delay(4000);
+		await delay(500);
 
 		// await delay(4000);
 		// clear(false);
