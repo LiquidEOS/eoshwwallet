@@ -528,14 +528,20 @@ app.post('/', async (req, res) => {
 					drawText(0,0,"signed", true);
 					res.send("signed transaction: " + signature);
 					currentUI = null;
+					setTimeout(()=>{
+						clear(true);
+					},3000);
 				}
 				else {
 					
 					clear(false);
 					drawText(0,0,"rejected", true);
 					res.send("rejected transaction.");
-					
+					setTimeout(clear,3000);	
 					currentUI = null;
+					setTimeout(()=>{
+						clear(true);
+					},3000);
 				}
 
 			}
