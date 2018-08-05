@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 var gpio = require('rpi-gpio');
 var fs = require('fs');
-var bdf = require('bdf');
+var bdf = require('./BDF');
 const { padImageData, createBitmapFile } = require('./bitmap');
 var BDF = new bdf();
 var BDFBig = new bdf();

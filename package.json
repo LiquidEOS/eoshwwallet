@@ -9,8 +9,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bdf": "^1.0.1",
+  "dependencies": {    
     "bip39": "^2.5.0",
     "body-parser": "^1.18.3",
     "eosjs": "^16.0.0",
