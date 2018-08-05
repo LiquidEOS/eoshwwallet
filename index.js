@@ -40,7 +40,7 @@ function sendImage(x,y,image){
 
 }
 BDF.loadSync('c64.bdf');
-BDFBig.loadSync('c64d.bdf');
+BDFBig.loadSync('10x20.bdf');
 
 let pixelMatrix = [];
 let pixelMatrixPrev = [];
@@ -525,7 +525,7 @@ app.post('/', async (req, res) => {
 					var signature = ecc.sign(Buffer.from(req.body.data, 'base64'), privateKey);
 
 					clear(false);
-					drawText(0,0,"signed", true);
+					drawText(0,0,"signed", true, true);
 					res.send("signed transaction: " + signature);
 					currentUI = null;
 					setTimeout(()=>{
