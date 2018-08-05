@@ -547,6 +547,7 @@ async function genSeed(pw){
     mnemonic = await genMnemonicWithPass(pw);
     // mnemonic = bip39.generateMnemonic();
 	const words = mnemonic.split(' ');	
+	console.log(words.length);
 	return words;
 }
 async function showSeed(words){
@@ -580,6 +581,7 @@ async function genShowSeed(pw){
 		const confirm = new ConfirmationMessage({
 			title: "proceed?",
 			text: "did you write it down?",
+			text2:"",
 			onSelect: async (yn)=>{
 				if(yn == 'Y'){
 					// proceed
