@@ -355,7 +355,7 @@ class ConfirmationMessage {
 		drawText(50,70,textToDraw,true);
 	}
 }
-async function genSeed(){
+function genSeed(){
 	let examplePhrase = 'witch collapse practice feed shame open despair creek road again ice least';
 		examplePhrase = "witch collapse";
 		const words = examplePhrase.split(' ');
@@ -391,7 +391,7 @@ async function genShowSeed(pw){
 		// do you want to proceed?
 		const confirm = new ConfirmationMessage({
 			title: "proceed?",
-			text: "do you want to keep this seed?",
+			text: "did you write it down?",
 			onSelect: async (yn)=>{
 				if(yn == 'Y'){
 					// proceed
