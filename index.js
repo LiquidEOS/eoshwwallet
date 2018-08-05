@@ -356,15 +356,19 @@ class ConfirmationMessage {
 	}
 
 	drawOptions(){				
-		const {title,choices,text, text2} = this.options;
+		const {title,choices,text, text2, text3} = this.options;
 		clear(false);
 		drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
 			drawBox(3+ i * 13,15, 15 ,20,true, i === this.selection);
 			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
 		}        
-		drawText(5,65,text,true);
-		drawText(5,80,text2,true);
+		if(text)
+			drawText(5,40,text,true);
+		if(text2)
+			drawText(5,65,text2,true);
+		if(text3)
+			drawText(5,80,text3,true);
 	}
 }
 
@@ -508,6 +512,7 @@ app.post('/', async (req, res) => {
 		title: "Sign transaction?",
 		text: req.body.text || "",
 		text2: req.body.text2 || "",
+		text3: req.body.text3 || "",
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
 					clear(false);
