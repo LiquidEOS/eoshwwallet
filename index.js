@@ -144,7 +144,9 @@ async function init(){
 
 
 function drawPixel(x,y,c){
-	pixelMatrix[x][y] = c;
+	var col = pixelMatrix[x];
+	if(col && col.length > y)
+		col[y] = c;
 }
 
 function clear(color){
