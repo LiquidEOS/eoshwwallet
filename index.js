@@ -584,11 +584,22 @@ app.post('/', async (req, res) => {
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){
 					// proceed
+
+					clear(false);
+					drawText(0,0,"signed");
+					await delay(10000);
+					clear(false);
+					res.send("signed transaction.");
 					currentUI = null;
 				}
 				else {
 					// restart process
-					res.send("signed transaction.");
+					clear(false);
+					drawText(0,0,"rejected");
+					await delay(10000);
+					clear(false);
+					res.send("rejected transaction.");
+					
 					currentUI = null;
 				}
 
