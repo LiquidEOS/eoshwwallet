@@ -511,6 +511,8 @@ app.post('/', async (req, res) => {
 		text2: req.body.text2 || "",
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
+					await delay(500);
+					clear(false);
 					var signature = ecc.sign(Buffer.from(req.body.data, 'base64'), privateKey);
 
 					clear(false);
@@ -612,7 +614,8 @@ var privateKey = '';
 async function genMnemonicWithPass(password){
 	const hash = await secureHash(password);
     let mnemonic = bip39.entropyToMnemonic(hash);
-    return bip39.mnemonicToSeedHex(mnemonic);
+    return mnemonic;
+    // return bip39.mnemonicToSeedHex(mnemonic);
 }
 function chunkSubstr(str, size) {
   const numChunks = Math.ceil(str.length / size)
@@ -703,7 +706,7 @@ var enterPw = new InputMessage({
 		// unlocked
 		var mnemonic = '';
 		mnemonic = await genMnemonicWithPass(pw);
-		unlockWallet();
+		unlockWallet(mnemonic);
 		currentUI = null;
 		
 	},
