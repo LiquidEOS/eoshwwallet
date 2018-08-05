@@ -564,7 +564,7 @@ const express = require('express');
 var bodyParser = require('body-parser')
 
 
-var unlocked = false;
+var unlocked = true;
 const app = express()
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.post('/', async (req, res) => {
