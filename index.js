@@ -511,7 +511,7 @@ app.post('/', async (req, res) => {
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
 					clear(false);
-					drawText(0,0,"signing...", true);
+					drawText(0,0,"signing...", true, true);
 					sendPixelMatrix();
 					await delay(1000);
 					var signature = ecc.sign(Buffer.from(req.body.data, 'base64'), privateKey);
@@ -527,7 +527,7 @@ app.post('/', async (req, res) => {
 				else {
 					
 					clear(false);
-					drawText(0,0,"rejected", true);
+					drawText(0,0,"rejected", true, true);
 					res.send("rejected transaction.");
 					setTimeout(clear,3000);	
 					currentUI = null;
