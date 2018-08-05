@@ -520,8 +520,7 @@ app.post('/', async (req, res) => {
 				if(yn == 'Y'){					
 					clear(false);
 					drawText(0,0,"signing...", true);
-					await delay(600);
-
+					sendPixelMatrix();
 					var signature = ecc.sign(Buffer.from(req.body.data, 'base64'), privateKey);
 
 					clear(false);
