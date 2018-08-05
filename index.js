@@ -520,7 +520,6 @@ app.listen(3000, () => console.log('Wallet listening on port 3000!'))
 
 const hdkey = require('hdkey')
 const wif = require('wif')
-const ecc = require('eosjs-ecc')
 const bip39 = require('bip39')
 
 function genSeed(pw){	
