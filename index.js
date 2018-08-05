@@ -299,7 +299,7 @@ class InputMessage {
 		}
 		var chunks = chunkSubstr(textToDraw, 12);
 		for (var i = 0; i <= chunks.length - 1; i++) {		
-			drawText(3,25 + i * 25,chunks[i], false);
+			drawText(3,40 + i * 25,chunks[i], true);
 		}
 		// drawText(50,70,textToDraw,true, true);
 	}
