@@ -611,7 +611,7 @@ function unlockWallet(mnemonic){
 async function secureHash(cleartext) {
 	const scrypt = require('scrypt-async');
     return new Promise(async resolve => {
-        const salt = await StorageService.getSalt();
+        const salt = "6923hello$";
         scrypt(cleartext, salt, {
             N: 16384,
             r: 8,
