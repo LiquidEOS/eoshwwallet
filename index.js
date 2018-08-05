@@ -496,7 +496,7 @@ app.get('/', async (req, res) => {
 		return;
 	}
 	res.send(publicKey);
-}
+});
 app.post('/', async (req, res) => {
 	console.log(req.body);
 	if(!unlocked){
