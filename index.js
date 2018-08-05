@@ -219,15 +219,16 @@ var wasBothClick = false;
 
 class InputMessage {
 	constructor(options){
-		this.input = "";		
-		this.showLast = false;
-		this.selection = 0;		
+		
 		this.options = options;
 
 		
 	}
 	start(){
 		var this2 = this;
+		this.input = "";		
+		this.showLast = false;
+		this.selection = 0;
 		setTimeout(()=>{
 			this2.drawOptions();
 		},100);
@@ -294,6 +295,65 @@ class InputMessage {
 		drawText(50,70,textToDraw,true);
 	}
 }
+
+class ConfirmationMessage {
+	constructor(options){
+		
+		options.choices = ['Y','N'];
+		this.options = options;
+
+
+		
+	}
+	start(){
+		var this2 = this;
+		this.selection = 0;
+		setTimeout(()=>{
+			this2.drawOptions();
+		},100);
+	}
+	L(){
+		var newSelection = this.selection -1;
+		if(newSelection < 0)
+			newSelection = this.options.choices.length-1;
+		this.updateSelection(newSelection);
+	}
+	R(){
+		var newSelection = this.selection +1;
+		if(newSelection >= this.options.choices.length)
+			newSelection = 0;
+		this.updateSelection(newSelection);
+
+	}
+	selectInput(){
+		this.options.onSelect(this.options.choices[this.selection]);
+	}
+	B(){
+		this.selectInput();
+		this.drawOptions();
+	}
+	updateSelection(newSelection){
+		this.selection = newSelection;		
+		this.drawOptions();
+	}
+
+	drawOptions(){				
+		const {title,choices,text} = this.options;
+		clear(false);
+		drawText(3,3,title, true);
+		for(var i=0; i < choices.length ; i++){
+			drawBox(3+ i * 13,15, 15 ,20,true, i === this.selection);
+			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
+		}
+
+        var textToDraw = '';
+		if(this.input.length > 0){
+				textToDraw = text;
+		}
+		drawText(50,70,textToDraw,true);
+	}
+}
+
 var selectPw = new InputMessage({
 	title: "choose password",
 	onSelect: async (pw)=>{
@@ -326,13 +386,29 @@ var selectPw = new InputMessage({
 			await delay(4000);
 		}
 
+		console.log("proceed?")
+		// do you want to proceed?
+		const confirm = new ConfirmationMessage({
+			title: "proceed?",
+			text: "do you want to proceed?",
+			onSelect: async (yn)=>{
+				if(yn == 'Y'){
+					// proceed
+					clear(false);
+					drawText(3,3,"enter pw again", true);
+					await delay(1000);
+					currentUI = enterPw;
+					currentUI.start();					
+				}
+				else {
+					// restart process 
+					currentUI = selectPw;
+					currentUI.start();
+				}
 
+			}
+		})
 
-		clear(false);
-		drawText(3,3,"enter pw again", true);
-		await delay(1000);
-		currentUI = enterPw;
-		currentUI.start();
 	},
 	hide: true,
 	choices: [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!']
