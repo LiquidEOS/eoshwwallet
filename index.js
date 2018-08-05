@@ -22,7 +22,7 @@ function sendImage(x,y,image){
 	 });	
 
 }
-BDF.loadSync('c64.bdf');
+BDF.loadSync('c64d.bdf');
 BDFBig.loadSync('10x20.bdf');
 
 let pixelMatrix = [];
