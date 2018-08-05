@@ -181,7 +181,6 @@ function drawLine(x0,y0,x1,y1,c){
 		              if (e2 < dy) { err += dx; y0 += sy; }
 		}
 }
-init();
 
 async function splash(){
 	await sendImage(0,0,bg3);
@@ -683,11 +682,12 @@ var enterPw = new InputMessage({
 
 
 var passwordExist = fs.existsSync('/home/pi/wallet.inited');
-if(passwordExist){
-	enterPw.start();
-}
-else{
-	startSelectPW();
-}
-
+init().then(()=>{
+	if(passwordExist){
+		enterPw.start();
+	}
+	else{
+		startSelectPW();
+	}
+});
 
