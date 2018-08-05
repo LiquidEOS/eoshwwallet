@@ -191,9 +191,10 @@ async function splash(){
 	sendPixelMatrix();	
 	await delay(2000);
 	await sendImage(0,0,bg1);
-	sendPixelMatrix();	
+	sendPixelMatrix();		
 	clear(true);
 	sendPixelMatrix();	
+	await delay(2000);
 }
 class RebootTimer {
 	constructor(){		
