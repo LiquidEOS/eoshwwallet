@@ -567,7 +567,7 @@ async function genShowSeed(pw){
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
 		await delay(4000);		
-		const words = await genSeed();
+		const words = await genSeed(pw);
 		await showSeed(words);
 		clear(false);
 		console.log('showing seed again');
