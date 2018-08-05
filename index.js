@@ -366,11 +366,11 @@ class ConfirmationMessage {
 		if(text)
 			drawText(5,40,text,true);
 		if(text2)
-			drawText(5,55,text,true);
+			drawText(5,55,text2,true);
 		if(text3)
-			drawText(5,70,text2,true);
+			drawText(5,70,text3,true);
 		if(text4)
-			drawText(5,85,text3,true);
+			drawText(5,85,text4,true);
 	}
 }
 
