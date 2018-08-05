@@ -397,9 +397,17 @@ async function genShowSeed(pw){
 				if(yn == 'Y'){
 					// proceed
 					clear(false);
-					drawText(3,3,"enter pw again", true);
+					// verify password
+					drawText(3,3,"verifying", true);
 					await delay(4000);
-					enterPw.start();					
+					clear(true);
+					drawText(3,3,"unlocked", false);
+					// await delay(4000);
+					// clear(false);
+					// unlocked
+					currentUI = null;
+					unlocked = true;
+					rebootTimer = new RebootTimer();					
 				}
 				else {
 					// restart process
@@ -413,15 +421,35 @@ async function genShowSeed(pw){
 		});		
 		confirm.start();
 }
-var selectPw = new InputMessage({
-	title: "choose password",
-	onSelect: async (pw)=>{
-		genShowSeed(pw)
 
-	},
-	hide: true,
-	choices: [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!']
-});
+function startSelectPW(){
+	var selectPw = new InputMessage({
+		title: "choose password",
+		onSelect: async (pw)=>{
+			selectPw = new InputMessage({
+				title: "verify password",
+				onSelect: async (pw2)=>{
+					if(pw != pw2){
+						clear(false);
+						drawText(3,3,"passwords do not match", true);
+						await delay(4000);
+						startSelectPW();
+					}
+					else{
+						genShowSeed(pw);
+					}					
+				},
+				hide: true,
+				choices: [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!']
+			});
+			selectPw.start();
+		},
+		hide: true,
+		choices: [1,2,3,4,5,6,7,8,9,0,'A','B','C','D','E','F','<','!']
+	});
+	selectPw.start();
+}
+
 
 const delay = time => new Promise(res=>setTimeout(()=>res(),time));
 var rebootTimer;
@@ -556,7 +584,7 @@ draw();
 clear(true);
 
 var currentUI;
-selectPw.start();
+startSelectPW();
 
 
 
@@ -564,7 +592,7 @@ const express = require('express');
 var bodyParser = require('body-parser')
 
 
-var unlocked = true;
+var unlocked = false;
 const app = express()
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.post('/', async (req, res) => {
