@@ -571,8 +571,7 @@ app.post('/', async (req, res) => {
 	console.log(req.body);
 	if(!unlocked){
 		clear(false);
-		await delay(3000);
-		drawText(0,0,"click to unlock");
+		drawText(0,0,"click to unlock", true);
 		res.send('locked');
 		return 
 
@@ -587,15 +586,15 @@ app.post('/', async (req, res) => {
 					await delay(300);
 					clear(false);
 					drawText(0,0,"signed");
-					res.send("signed transaction.");
+					res.send("signed transaction.", true);
 					currentUI = null;
 				}
 				else {
 					// restart process
-					await delay(300);
+					
 					clear(false);
 					drawText(0,0,"rejected");
-					res.send("rejected transaction.");
+					res.send("rejected transaction.", true);
 					
 					currentUI = null;
 				}
