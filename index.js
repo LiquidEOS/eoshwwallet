@@ -532,7 +532,7 @@ const bip39 = require('bip39')
 
 async function genSeed(pw){	
     let mnemonic = bip39.generateMnemonic();
-    mnemonic = await genMnemonicWithPass(pwd);
+    mnemonic = await genMnemonicWithPass(pw);
     // mnemonic = bip39.generateMnemonic();
 	const words = mnemonic.split(' ');	
 	return words;
