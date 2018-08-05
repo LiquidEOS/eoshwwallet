@@ -356,7 +356,7 @@ class ConfirmationMessage {
 	}
 
 	drawOptions(){				
-		const {title,choices,text, text2, text3} = this.options;
+		const {title,choices,text, text2, text3, text4} = this.options;
 		clear(false);
 		drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
@@ -366,9 +366,11 @@ class ConfirmationMessage {
 		if(text)
 			drawText(5,40,text,true);
 		if(text2)
-			drawText(5,65,text2,true);
+			drawText(5,55,text,true);
 		if(text3)
-			drawText(5,80,text3,true);
+			drawText(5,70,text2,true);
+		if(text4)
+			drawText(5,85,text3,true);
 	}
 }
 
@@ -513,6 +515,7 @@ app.post('/', async (req, res) => {
 		text: req.body.text || "",
 		text2: req.body.text2 || "",
 		text3: req.body.text3 || "",
+		text4: req.body.text4 || "",
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
 					clear(false);
