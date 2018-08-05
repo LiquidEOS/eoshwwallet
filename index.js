@@ -206,9 +206,10 @@ class RebootTimer {
 	async reboot(){
 		clear(false);
 		drawText(3,3,"rebooting...", true);
-		await delay(3000);
+		await delay(5000);
 		clear(true);
-		await delay(2000);
+		drawText(3,3,"rebooting...", false);
+		await delay(3000);
 		require('child_process').exec('sudo /sbin/shutdown -r now', function (msg) { console.log(msg) });
 	}
 
@@ -397,11 +398,14 @@ async function genShowSeed(pw){
 					// proceed
 					clear(false);
 					drawText(3,3,"enter pw again", true);
-					await delay(1000);					
+					await delay(4000);
 					enterPw.start();					
 				}
 				else {
-					// restart process 					
+					// restart process
+					clear(false);
+					drawText(3,3,"generating new seed", true);
+					await delay(4000);
 					genShowSeed(pw);
 				}
 
@@ -473,6 +477,8 @@ var state = {};
 
 
 gpio.on('change', function(channel, value) {
+	if(rebootTimer)
+		rebootTimer.resetTimer();
 	if(state[channel] == value)
 		return;
 	state[channel] = value;
