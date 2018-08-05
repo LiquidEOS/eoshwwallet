@@ -297,7 +297,7 @@ class InputMessage {
 				textToDraw =  this.input;
 			}
 		}
-		drawText(50,70,textToDraw,true);
+		drawText(50,70,textToDraw,true, true);
 	}
 }
 
