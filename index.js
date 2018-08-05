@@ -124,7 +124,7 @@ var image = (await createBitmapFile({
 //	console.log(innerDirtybounds,image);
 	await sendImage(innerDirtybounds[1],innerDirtybounds[0],image);
 }
-function init(){
+async function init(){
 	for(var xi=0; xi < displaySize.width; xi++){
 		var col = [];
 		var col2 = [];
@@ -137,6 +137,7 @@ function init(){
 	}
 	// sendPixelMatrix(0,0,displaySize.width,displaySize.height);
 //	clear(false);
+	await splash();
 }
 
 
@@ -181,8 +182,11 @@ function drawLine(x0,y0,x1,y1,c){
 		}
 }
 init();
-sendImage(0,0,bg3);
-sendImage(0,0,bg1);
+
+async function splash(){
+	await sendImage(0,0,bg3);
+	await sendImage(0,0,bg1);
+}
 class RebootTimer {
 	constructor(){		
 		var minutes = 15;
