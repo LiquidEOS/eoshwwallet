@@ -20,7 +20,7 @@ var oled = require('oled-js-pi');
 var opts = {
   width: 128,
   height: 64,
-  address: 0x3D
+  address: 0x3C
 };
  
 var oled = new oled(opts);
@@ -33,7 +33,8 @@ function sendImage(x,y,image){
 	 	
 	//  });	
 	// oled.clearDisplay();
-	oled.drawBitmap(image);
+  oled.buffer = image;
+  oled.update();
 }
 BDF.loadSync('c64.bdf');
 BDFBig.loadSync('c64d.bdf');
@@ -422,7 +423,8 @@ gpio.on('change', function(channel, value) {
 	if(state[channel] == value)
 		return;
 	state[channel] = value;
-	//console.log(channel,value)
+
+	console.log("pressed:",channel,value);
 	if(value){
 		//console.log(state);
 		if(channel == 26){
@@ -460,9 +462,16 @@ gpio.on('change', function(channel, value) {
 });
 if(!isDebug){
 	gpio.setMode(gpio.MODE_BCM);
-	gpio.setup(19, gpio.DIR_IN, gpio.EDGE_BOTH);
-	gpio.setup(26, gpio.DIR_IN, gpio.EDGE_BOTH);
-	
+	gpio.setup(5, gpio.DIR_IN, gpio.EDGE_BOTH);
+	gpio.setup(6, gpio.DIR_IN, gpio.EDGE_BOTH);
+	// L_pin = 27 
+	// R_pin = 23 
+	// C_pin = 4 
+	// U_pin = 17 
+	// D_pin = 22 
+	 
+	// A_pin = 5 
+	// B_pin = 6 
 
 }
 else{
