@@ -214,7 +214,7 @@ class InputMessage {
 	}
 	D(){
 		var newLine = this.currentLine +1;
-		if(newLine < 0)
+		if(newLine > parseInt(this.options.choices/8))
 			newLine = parseInt(this.options.choices/8);
 		this.currentLine = newLine;		
 		var newSelection = (this.selection % 9) + (this.currentLine * 9);
@@ -366,8 +366,8 @@ class ConfirmationMessage {
 			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
 		}        
 		var lines = [text,text2,text3,text4];
-		var textToShow = lines[this.currentLine];
-		if(textToShow){
+		var textToDraw = lines[this.currentLine];
+		if(textToDraw){
 			if(textToDraw.length > 8){
 				// needs scrolling:
 				if(this.lastDraw + 500 > new Date().getTime()){
@@ -388,7 +388,7 @@ class ConfirmationMessage {
 				
 			}
 			else
-				drawText(5,40,textToShow,true);
+				drawText(5,40,textToDraw,true);
 		}
 	}
 }
