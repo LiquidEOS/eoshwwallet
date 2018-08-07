@@ -66,7 +66,8 @@ async function sendPixelMatrix(){
 	}
 	if(!pixels.length)
 		return;
-	oled.drawPixel(pixels);
+	console.log(pixels.length);
+	oled.drawPixel(pixels,true);
 }
 async function init(){
 	for(var xi=0; xi < displaySize.width; xi++){
