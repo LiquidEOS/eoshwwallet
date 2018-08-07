@@ -224,13 +224,13 @@ class InputMessage {
 	L(){
 		var newSelection = this.selection -1;
 		if(newSelection < 0)
-			newSelection = this.options.choices.length-1;
+			newSelection = 0;
 		this.updateSelection(newSelection);
 	}
 	R(){
 		var newSelection = this.selection +1;
 		if(newSelection >= this.options.choices.length)
-			newSelection = 0;
+			newSelection = this.options.choices.length-1;
 		this.updateSelection(newSelection);
 
 	}
