@@ -370,22 +370,19 @@ class ConfirmationMessage {
 		var textToDraw = lines[this.currentLine];
 		
 		if(textToDraw){
-			if(textToDraw.length > 8){
+			if(textToDraw.length > 16){
 				// needs scrolling:
 				
 				if(this.lastDraw + 500 < new Date().getTime()){
 					
 					this.offset++;
-					console.log("moving textToDraw",textToDraw,this.offset,textToDraw.length - 8);
-					if(this.offset > textToDraw.length - 8){
+					if(this.offset > textToDraw.length - 16){
 						this.offset = 0;
 					}
-					console.log("moving2 textToDraw",textToDraw,this.offset);
 					this.lastDraw = new Date().getTime();
 				}
 				textToDraw = textToDraw.substr(this.offset);
-				textToDraw = textToDraw.substr(0,8);
-				console.log("textToDraw-scroll",textToDraw);
+				textToDraw = textToDraw.substr(0,16);
 				var this2 = this;
 				setTimeout(()=>{
 					if(!this2.stopped){
