@@ -666,16 +666,21 @@ function decrypt(text,password){
 
 async function genMnemonicWithPass(password){
 	var walletExists = fs.existsSync(filename);
+
 	if(walletExists){
 		var encrypted = fs.readFileSync(filename);
 		// decrypt
+		
+
 		var mnemonic = decrypt(encrypted, password);
+		console.log("dec:"encrypted, mnemonic,password);
 		return mnemonic;
 	}
 	else{
 		var mnemonic = bip39.generateMnemonic();
 		var encrypted = encrypt(mnemonic, password);
 		fs.writeFileSync(filename, encrypted);
+		console.log("enc:"encrypted, mnemonic,password);
 		return mnemonic;
 	}
     // return bip39.mnemonicToSeedHex(mnemonic);
@@ -768,6 +773,8 @@ var enterPw = new InputMessage({
 		// clear(false);
 		// unlocked
 		var mnemonic = '';
+
+
 		mnemonic = await genMnemonicWithPass(pw);
 		console.log(mnemonic);
 		if(mnemonic.split(' ').length != 12)
