@@ -373,8 +373,9 @@ class ConfirmationMessage {
 		if(textToDraw){
 			if(textToDraw.length > 8){
 				// needs scrolling:
-				console.log("moving textToDraw",textToDraw);
+				
 				if(this.lastDraw + 500 < new Date().getTime()){
+					console.log("moving textToDraw",textToDraw);
 					this.offset++;
 					if(this.offset > textToDraw.length - 8){
 						this.offset = 0;
