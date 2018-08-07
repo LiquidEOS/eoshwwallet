@@ -194,7 +194,7 @@ class InputMessage {
 		this.input = "";		
 		this.showLast = false;
 		this.selection = 0;
-		this.this.currentLine = 0;
+		this.currentLine = 0;
 		currentUI = this;
 		setTimeout(()=>{
 			this2.drawOptions();
