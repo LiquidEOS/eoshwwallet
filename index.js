@@ -315,7 +315,7 @@ class ConfirmationMessage {
 		this.offset;
 		this.stopped = false;
 		this.lastDraw = new Date().getTime();
-		
+
 		setTimeout(()=>{
 			this2.drawOptions();
 		},100);
@@ -369,14 +369,14 @@ class ConfirmationMessage {
 		}        
 		var lines = [text,text2,text3,text4];
 		var textToDraw = lines[this.currentLine];
-		console.log("textToDraw",textToDraw);
+		
 		if(textToDraw){
 			if(textToDraw.length > 8){
 				// needs scrolling:
-
+				console.log("moving textToDraw",textToDraw);
 				if(this.lastDraw + 500 > new Date().getTime()){
 					this.offset++;
-					if(this.offset > textToDraw.length){
+					if(this.offset > textToDraw.length - 8){
 						this.offset = 0;
 					}
 					this.lastDraw = new Date().getTime();
