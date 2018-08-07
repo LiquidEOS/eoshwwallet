@@ -28,15 +28,6 @@ var oled = new OLED(opts);
 oled.turnOnDisplay();
 oled.dimDisplay(false);
 
-function sendImage(x,y,image){
-	// var host = 'localhost'
-	// return fetch('http://'+host+':8000', { method: 'POST', body: JSON.stringify({"x":x, "y":y,"data":image}) }).catch(a=>{
-	 	
-	//  });	
-	// oled.clearDisplay();
-  oled.buffer = image;
-  oled.update();
-}
 BDF.loadSync('c64.bdf');
 BDFBig.loadSync('c64d.bdf');
 
@@ -73,59 +64,9 @@ async function sendPixelMatrix(){
 		            }
 	            }
 	}
-	if(innerDirtybounds[0] > innerDirtybounds[2])
+	if(!pixels.length)
 		return;
 	oled.drawPixel(pixels);
-	innerDirtybounds = [0,0,displaySize.width-1,displaySize.height-1];
-	//let width = innerDirtybounds[2] - innerDirtybounds[0] + 1;
-	let height = innerDirtybounds[2] - innerDirtybounds[0] ;
-	let width = innerDirtybounds[3] - innerDirtybounds[1] ;
-	pixelMatrixPrev = JSON.parse(JSON.stringify(pixelMatrix));
-	var data = [];
-	var bits = 0;
-	var currentNum = 0;
-	var intData = [];
-	//for(var yi=innerDirtybounds[1]; yi < innerDirtybounds[1] + width; yi++){
-		for(var xi=innerDirtybounds[0]; xi < innerDirtybounds[0] + height-1; xi++){
-	for(var yi=innerDirtybounds[1]; yi < innerDirtybounds[1] + width-1; yi++){
-			 if(bits == 8){
-				 bits = 0;
-				 data.push(t(currentNum));
-				 currentNum = 0;
-			 }
-			 currentNum = currentNum * 2;
-			 if(pixelMatrix[xi][yi]){
-				 currentNum = currentNum + 1;
-			 }
-			 bits++;
-	            }
-	}
-	if(bits < 8){
-		while(bits < 8){
-			currentNum = currentNum * 2
-			bits++
-		}
-		data.push(t(currentNum));
-	}
-
-const imageData = padImageData({
-		  unpaddedImageData: Buffer.from(data),
-		  width:width-1,
-		  height:height-1
-});
-var image = (await createBitmapFile({
-	  imageData,
-	  width:width-1,
-	  height:height-1,
-	  bitsPerPixel: 1,
-	  colorTable:Buffer.from([  0xFF, 0xFF, 0xFF, 0xFF,
-	    0x00, 0x00, 0x00, 0x00])
-	})).toString('base64');
-
-//	var image = tst;
-	// send data
-//	console.log(innerDirtybounds,image);
-	await sendImage(innerDirtybounds[1],innerDirtybounds[0],image);
 }
 async function init(){
 	for(var xi=0; xi < displaySize.width; xi++){
