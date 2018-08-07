@@ -138,7 +138,7 @@ Oled.prototype._waitUntilReady = function(callback) {
   var done,
       oled = this;
 
-  function tick(callback) {
+  function tick() {
     oled._readI2C(function(byte) {
       // read the busy byte in the response
       busy = byte >> 7 & 1;
@@ -152,7 +152,7 @@ Oled.prototype._waitUntilReady = function(callback) {
     });
   };
 
-  setTimeout(tick(callback), 0);
+  setTimeout(tick, 0);
 }
 
 // set starting position of a text string on the oled
