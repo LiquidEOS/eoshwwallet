@@ -387,40 +387,25 @@ class ConfirmationMessage {
 	}
 }
 
-function buttonL(){
-	if(lastTimes.l){
-		if(lastTimes.l + 250 > new Date().getTime())
-			return;
-	}
-	if(currentUI) currentUI.L();
-	
-	// sendImage(0,0,bg2);
-	lastTimes.l = new Date().getTime();
-}
-function buttonR(){	
-	if(lastTimes.r){
 
-		if(lastTimes.r + 250 > new Date().getTime())
-			return;
-	}
-	if(currentUI) currentUI.R();
-	lastTimes.r = new Date().getTime();
-}
-
-function buttonBoth(){
-	if(lastTimes.b){
-		if(lastTimes.b + 250 > new Date().getTime())
-			return;
-	}
-	wasBothClick = true;
-	lastTimes.b = new Date().getTime();
-	if(currentUI)
-		currentUI.B();
-}
 var state = {};
-
+var handlers={
+	27: "L",
+	23: "R",
+	4: "C",
+	17: "U",
+	22: "D",	
+	6: "B",
+	5: "A",
+}
 function makeWatcher (pin) {
     return function (val) {
+    			if(val){
+    				var funcName = handlers[pin];
+    				console.log(pin,val, funcName);
+    				if(currentUI && currentUI[funcName])
+    					currentUI[funcName]();
+    			}
     			console.log(pin,val);
                 // handleButton (pin, val);
             }
