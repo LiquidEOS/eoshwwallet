@@ -140,10 +140,10 @@ async function splash(){
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
 	// await sendPixelMatrix();
-	clear(false);
-	await sendPixelMatrix();
-	clear(true);
-	await sendPixelMatrix();	
+	// clear(false);
+	// await sendPixelMatrix();
+	// clear(true);
+	// await sendPixelMatrix();	
 }
 class RebootTimer {
 	constructor(){		
@@ -209,6 +209,7 @@ class InputMessage {
 		if(newSelection < 0)
 			newSelection = this.selection - newSelection;		
 		var newSelection = (this.selection % 9) + (this.currentLine * 9);
+		console.log(newLine, newSelection);
 		this.updateSelection(newSelection);
 	}
 	D(){
@@ -216,6 +217,7 @@ class InputMessage {
 		if(newLine < 0)
 			newLine = parseInt(this.options.choices/8);
 		this.currentLine = newLine;		
+		console.log(newLine, newSelection);
 		var newSelection = (this.selection % 9) + (this.currentLine * 9);
 		this.updateSelection(newSelection);
 	}
@@ -224,12 +226,14 @@ class InputMessage {
 		var newSelection = this.selection -1;
 		if(newSelection < 0)
 			newSelection = this.options.choices.length-1;
+		console.log(newSelection);
 		this.updateSelection(newSelection);
 	}
 	R(){
 		var newSelection = this.selection +1;
 		if(newSelection >= this.options.choices.length)
 			newSelection = 0;
+		console.log(newSelection);
 		this.updateSelection(newSelection);
 
 	}
@@ -242,6 +246,7 @@ class InputMessage {
 	}
 	B(){
 		this.showLast = false;
+		console.log(this.selection);
 		if(this.options.choices[this.selection] == '!'){		
 			this.selectInput(this.input);
 			this.input = "";
@@ -515,7 +520,7 @@ app.post('/', async (req, res) => {
 					clear(false);
 					drawText(0,0,"signing...", true, true);
 					sendPixelMatrix();
-					await delay(1000);
+					// await delay(1000);
 					var signature = ecc.sign(Buffer.from(req.body.data, 'base64'), privateKey);
 
 					clear(false);
