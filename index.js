@@ -268,7 +268,7 @@ class InputMessage {
 		clear(false);
 		drawText(3,3,title, true);
 		
-		console.log("draw",this.currentLine, (i < choices.length) , (i <= (this.currentLine+1) * 9));
+		// console.log("draw",this.currentLine, (i < choices.length) , (i <= (this.currentLine+1) * 9));
 
 		for(var i=this.currentLine * 9; (i < choices.length) && (i < (this.currentLine+1) * 9); i++){
 			var j = i % 9;
@@ -660,9 +660,9 @@ function unlockWallet(mnemonic){
 	privateKey = wif.encode(128, node._privateKey, false);
 	clear(true);
 	drawText(3,3,"unlocked", false);
-	var chunks = chunkSubstr(publicKey, 25);
+	var chunks = chunkSubstr(publicKey, 12);
 	for (var i = 0; i <= chunks.length - 1; i++) {		
-		drawText(3,30 + i * 25,chunks[i], false);
+		drawText(3,12 + i * 10,chunks[i], false);
 	}
 }
 
