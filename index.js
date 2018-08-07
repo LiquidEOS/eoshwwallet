@@ -214,8 +214,8 @@ class InputMessage {
 	}
 	D(){
 		var newLine = this.currentLine +1;
-		if(newLine > parseInt(this.options.choices/8))
-			newLine = parseInt(this.options.choices/8);
+		if(newLine >= parseInt(this.options.choices/8))
+			newLine = parseInt(this.options.choices/8)-1;
 		this.currentLine = newLine;		
 		var newSelection = (this.selection % 9) + (this.currentLine * 9);
 		this.updateSelection(newSelection);
