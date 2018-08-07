@@ -591,7 +591,7 @@ async function genShowSeed(pw){
 		clear(false);
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
-		if(true){
+		if(false){
 			clear(false);
 			currentUI = null;
 			unlockWallet(genMnemonicWithPass(pw));
@@ -671,16 +671,13 @@ async function genMnemonicWithPass(password){
 		var encrypted = fs.readFileSync(filename).toString();
 		// decrypt
 		
-		console.log("pw:",password);
 		var mnemonic = decrypt(encrypted, password);
-		console.log("dec:",password,encrypted, mnemonic);
 		return mnemonic;
 	}
 	else{
 		var mnemonic = bip39.generateMnemonic();
 		var encrypted = encrypt(mnemonic, password);
 		fs.writeFileSync(filename, encrypted);
-		console.log("enc:",encrypted, mnemonic,password);
 		return mnemonic;
 	}
     // return bip39.mnemonicToSeedHex(mnemonic);
