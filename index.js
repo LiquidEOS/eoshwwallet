@@ -323,6 +323,7 @@ class ConfirmationMessage {
 		this.currentLine--;
 		if(this.currentLine < 0)
 			this.currentLine = 0;
+		this.offset = 0;		
 		this.drawOptions();
 	}
 	D(){
@@ -330,6 +331,7 @@ class ConfirmationMessage {
 		var maxLines = this.options.maxLines || 4;
 		if(this.currentLine >= maxLines)
 			this.currentLine = maxLines-1;
+		this.offset = 0;
 		this.drawOptions();
 	}
 	L(){
