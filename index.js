@@ -367,9 +367,11 @@ class ConfirmationMessage {
 		}        
 		var lines = [text,text2,text3,text4];
 		var textToDraw = lines[this.currentLine];
+		console.log("textToDraw",textToDraw);
 		if(textToDraw){
 			if(textToDraw.length > 8){
 				// needs scrolling:
+
 				if(this.lastDraw + 500 > new Date().getTime()){
 					this.offset++;
 					if(this.offset > textToDraw.length){
@@ -379,16 +381,17 @@ class ConfirmationMessage {
 				}
 				textToDraw = textToDraw.substr(this.offset);
 				textToDraw = textToDraw.substr(textToDraw.length-8,8);				
+				console.log("textToDraw-scroll",textToDraw);
 				var this2 = this;
 				setTimeout(()=>{
 					if(!this2.stopped){
 						this2.drawOptions();
 					}
 				},200);
-				
+				drawText(2,40,textToDraw,true);
 			}
 			else
-				drawText(5,40,textToDraw,true);
+				drawText(2,40,textToDraw,true);
 		}
 	}
 }
