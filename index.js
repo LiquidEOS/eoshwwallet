@@ -243,7 +243,6 @@ class InputMessage {
 	}
 	B(){
 		this.showLast = false;
-		console.log(this.selection);
 		if(this.options.choices[this.selection] == '!'){		
 			this.selectInput(this.input);
 			this.input = "";
@@ -375,11 +374,13 @@ class ConfirmationMessage {
 				// needs scrolling:
 				
 				if(this.lastDraw + 500 < new Date().getTime()){
-					console.log("moving textToDraw",textToDraw);
+					
 					this.offset++;
+					console.log("moving textToDraw",textToDraw,this.offset,textToDraw.length - 8);
 					if(this.offset > textToDraw.length - 8){
 						this.offset = 0;
 					}
+					console.log("moving2 textToDraw",textToDraw,this.offset);
 					this.lastDraw = new Date().getTime();
 				}
 				textToDraw = textToDraw.substr(this.offset);
@@ -568,7 +569,7 @@ async function genSeed(pw){
     mnemonic = await genMnemonicWithPass(pw);
     // mnemonic = bip39.generateMnemonic();
 	const words = mnemonic.split(' ');	
-	console.log(words.length);
+	// console.log(words.length);
 	return words;
 }
 async function showSeed(words){
