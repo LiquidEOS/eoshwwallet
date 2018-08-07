@@ -55,12 +55,11 @@ function t(num){
 async function sendPixelMatrix(){
 	// prepare data
 	var innerDirtybounds = [displaySize.width,displaySize.height,0,0];
+	var pixels = [];
 	for(var xi=0; xi < displaySize.width; xi++){
 	            for(var yi=0; yi < displaySize.height; yi++){
 			    if(pixelMatrix[xi][yi] != pixelMatrixPrev[xi][yi]){
-			    	oled.drawPixel([
-					    [xi, yi, pixelMatrix[xi][yi] ? 1 : 0],
-					]);
+					pixels.push([xi, yi, pixelMatrix[xi][yi] ? 1 : 0]);
 				    var position = innerDirtybounds;
 				    if(xi < position[0])
 				              position[0] = xi;
@@ -74,6 +73,7 @@ async function sendPixelMatrix(){
 		            }
 	            }
 	}
+	oled.drawPixel(pixels);
 	if(innerDirtybounds[0] > innerDirtybounds[2])
 		return;
 	innerDirtybounds = [0,0,displaySize.width-1,displaySize.height-1];
