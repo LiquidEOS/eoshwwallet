@@ -270,8 +270,10 @@ class InputMessage {
 		const {title,choices,hide} = this.options;
 		clear(false);
 		drawText(3,3,title, true);
+		
+		console.log("draw",this.currentLine, (i < choices.length) , (i <= (this.currentLine+1) * 9));
 
-		for(var i=this.currentLine * 9; i < choices.length && (i <= (this.currentLine+1) * 9); i++){
+		for(var i=this.currentLine * 9; (i < choices.length) && (i <= (this.currentLine+1) * 9); i++){
 			drawBox(3+ i * 13,15, 10 ,10,true, i === this.selection);			
 			drawText(3+i*13+1,17,choices[i].toString(), i !== this.selection);
 		}
