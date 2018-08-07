@@ -414,7 +414,7 @@ function makeWatcher (pin) {
     			if(val){
     				var funcName = handlers[pin];
     				// console.log(pin,val, funcName);
-    				if(state[val] && state[val] + 300 > new Date().getTime())
+    				if(state[val] && state[val] + 250 > new Date().getTime())
     					return;
     				state[val] = new Date().getTime();
     				if(currentUI && currentUI[funcName])
