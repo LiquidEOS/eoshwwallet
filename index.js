@@ -365,8 +365,8 @@ class ConfirmationMessage {
 		clear(false);
 		drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
-			drawBox(3+ i * 13,15, 15 ,20,true, i === this.selection);
-			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
+			drawBox(3+ i * 14,17, 15,20 + ((i === this.selection) ? 3:0),true, i === this.selection);
+			drawText(4+i*14,25,choices[i].toString(), i !== this.selection);
 		}        
 		var lines = [text,text2,text3,text4];
 		var textToDraw = lines[this.currentLine];
