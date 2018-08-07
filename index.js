@@ -146,7 +146,7 @@ function drawPixel(x,y,c){
 		col[y] = c;
 		oled.drawPixel([
 		    [x, y, c ? 1 : 0],
-		]);
+		],true);
 	}
 }
 
