@@ -117,8 +117,9 @@ Oled.prototype._transfer = function(type, val, fn) {
 
   // send control and actual val
   // this.board.io.i2cWrite(this.ADDRESS, [control, val]);
-  this.wire.writeByte(control, function(err) {
-    this.wire.writeByte(val, function(err) {
+  var wire = this.wire;
+  wire.writeByte(control, function(err) {
+    wire.writeByte(val, function(err) {
       fn();
     });
   });
