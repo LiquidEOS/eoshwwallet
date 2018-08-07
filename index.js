@@ -24,23 +24,26 @@ var opts = {
 };
  
 var oled = new oled(opts);
+oled.turnOnDisplay();
+oled.dimDisplay(false);
 
 function sendImage(x,y,image){
 	// var host = 'localhost'
 	// return fetch('http://'+host+':8000', { method: 'POST', body: JSON.stringify({"x":x, "y":y,"data":image}) }).catch(a=>{
 	 	
 	//  });	
-	
+	// oled.clearDisplay();
+	oled.drawBitmap(image);
 }
 BDF.loadSync('c64.bdf');
 BDFBig.loadSync('c64d.bdf');
 
 let pixelMatrix = [];
 let pixelMatrixPrev = [];
-let displaySize = {height: 122, width: 250};
+let displaySize = {height: 64, width: 128};
 async function draw(){
-	await sendPixelMatrix();
-	setTimeout(draw,500);
+	// await sendPixelMatrix();
+	// setTimeout(draw,500);
 }
 function t(num){
 	return num;
@@ -138,8 +141,12 @@ async function init(){
 
 function drawPixel(x,y,c){
 	var col = pixelMatrix[x];
-	if(col && col.length > y)
+	if(col && col.length > y){
 		col[y] = c;
+		oled.drawPixel([
+		    [x, y, c ? 1 : 0],
+		]);
+	}
 }
 
 function clear(color){
