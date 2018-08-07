@@ -668,12 +668,12 @@ async function genMnemonicWithPass(password){
 	var walletExists = fs.existsSync(filename);
 
 	if(walletExists){
-		var encrypted = fs.readFileSync(filename);
+		var encrypted = fs.readFileSync(filename).toString();
 		// decrypt
 		
-
+		console.log("pw:"password);
 		var mnemonic = decrypt(encrypted, password);
-		console.log("dec:",encrypted, mnemonic,password);
+		console.log("dec:",password,encrypted, mnemonic);
 		return mnemonic;
 	}
 	else{
@@ -776,7 +776,6 @@ var enterPw = new InputMessage({
 
 
 		mnemonic = await genMnemonicWithPass(pw);
-		console.log(mnemonic);
 		if(mnemonic.split(' ').length != 12)
 		{
 			clear(false);
