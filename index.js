@@ -65,8 +65,7 @@ async function sendPixelMatrix(){
 	            }
 	}
 	if(!pixels.length)
-		return;
-	console.log(pixels.length);
+		return;	
     pixelMatrixPrev = JSON.parse(JSON.stringify(pixelMatrix));
 	oled.drawPixel(pixels,true);
 }
@@ -246,8 +245,8 @@ class InputMessage {
 		clear(false);
 		drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
-			drawBox(3+ i * 13,15, 15 ,20,true, i === this.selection);
-			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
+			drawBox(3+ i * 13,15, 10 ,10,true, i === this.selection);
+			drawText(3+i*13+1,17,choices[i].toString(), i !== this.selection);
 		}
 
         var textToDraw = '';
@@ -336,11 +335,11 @@ var state = {};
 var handlers={
 	27: "L",
 	23: "R",
-	4: "C",
+	4: "B",
 	17: "U",
 	22: "D",	
 	6: "B",
-	5: "A",
+	5: "B",
 }
 function makeWatcher (pin) {
     return function (val) {
@@ -351,7 +350,7 @@ function makeWatcher (pin) {
     				if(currentUI && currentUI[funcName])
     					currentUI[funcName]();
     			}
-    			console.log("done handling", pin,val);
+    			// console.log("done handling", pin,val);
     			
                 // handleButton (pin, val);
             }
