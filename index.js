@@ -1,11 +1,10 @@
 const fetch = require('node-fetch');
-var gpio = require('rpi-gpio');
+var gpio = require('raspi-gpio');
 var fs = require('fs');
 var bdf = require('./BDF');
 const { padImageData, createBitmapFile } = require('./bitmap');
 var BDF = new bdf();
 var BDFBig = new bdf();
-var gpiop = gpio.promise;
 var http = require('http');
 let Eos = require('eosjs');
 let {ecc, Fcbuffer} = Eos.modules;
@@ -420,58 +419,13 @@ function buttonBoth(){
 }
 var state = {};
 
-
-gpio.on('change', function(channel, value) {
-	if(rebootTimer)
-		rebootTimer.resetTimer();
-	if(state[channel] == value)
-		return;
-	state[channel] = value;
-
-	console.log("pressed:",channel,value);
-	if(value){
-		//console.log(state);
-		if(channel == 26){
-			if(state['19']){
-				buttonBoth();
-			}
-			//else
-			//	buttonL();
-		}
-		else if (channel == 19){
-			if(state['26']){
-				buttonBoth();
-			}
-			//else
-			//	buttonR();
-		}
-	}
-	else{
-		if(state['26'] || state['19'])
-			return;
-		if(wasBothClick){
-			wasBothClick = false;
-		}
-		else{
-			if(channel == 26){
-				buttonL();
-			}
-			else{
-				buttonR();
-			}
-			
-		}
-
-	}
-});
-
 function makeWatcher (pin) {
     return function (val) {
     			console.log(pin,val);
                 // handleButton (pin, val);
             }
 }
-    var buttons = [];
+var buttons = [];
 
 if(!isDebug){
 	const L_pin = 27 
@@ -482,13 +436,12 @@ if(!isDebug){
 	const A_pin = 5 
 	const B_pin = 6 
 	var pins = [L_pin, R_pin, C_pin, U_pin, D_pin, A_pin, B_pin];
-for (var i=0; i<pins.length; i++) {
-//                console.log ("making GPIO" + pins[i])
-                buttons[i] = new gpio.DigitalInput({
-                    pin:'GPIO'+pins[i],
-                    pullResistor: gpio.PULL_UP});
-                buttons[i].on ('change', makeWatcher (pins[i]));
-            }
+	for (var i=0; i<pins.length; i++) {
+            buttons[i] = new gpio.DigitalInput({
+                pin:'GPIO'+pins[i],
+                pullResistor: gpio.PULL_UP});
+            buttons[i].on ('change', makeWatcher (pins[i]));
+    }
 
 
 	// gpio.setMode(gpio.MODE_BCM);
