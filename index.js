@@ -45,7 +45,7 @@ let pixelMatrixPrev = [];
 let displaySize = {height: 64, width: 128};
 async function draw(){
 	await sendPixelMatrix();
-	oled.update();
+	// oled.update();
 	setTimeout(draw,500);
 
 }
@@ -73,9 +73,9 @@ async function sendPixelMatrix(){
 		            }
 	            }
 	}
-	oled.drawPixel(pixels);
 	if(innerDirtybounds[0] > innerDirtybounds[2])
 		return;
+	oled.drawPixel(pixels);
 	innerDirtybounds = [0,0,displaySize.width-1,displaySize.height-1];
 	//let width = innerDirtybounds[2] - innerDirtybounds[0] + 1;
 	let height = innerDirtybounds[2] - innerDirtybounds[0] ;
