@@ -513,7 +513,7 @@ app.post('/', async (req, res) => {
 		return;
 	}
 	const confirm = new ConfirmationMessage({
-		title: "Sign transaction?",
+		title: "Sign?",
 		text: req.body.text || "",
 		text2: req.body.text2 || "",
 		text3: req.body.text3 || "",
@@ -521,28 +521,28 @@ app.post('/', async (req, res) => {
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
 					clear(false);
-					drawText(0,0,"signing...", true, true);
+					drawText(0,0,"Signing", true, true);
 					sendPixelMatrix();
 					// await delay(1000);
 					var signature = ecc.sign(Buffer.from(req.body.data, 'base64'), privateKey);
 
 					clear(false);
-					drawText(0,0,"signed", true, true);
+					drawText(0,0,"Signed", true, true);
 					res.send("signed transaction: " + signature);
 					currentUI = null;
 					setTimeout(()=>{
-						clear(true);
+						clear(false);
 					},3000);
 				}
 				else {
 					
 					clear(false);
-					drawText(0,0,"rejected", true, true);
+					drawText(0,0,"Rejected", true, true);
 					res.send("rejected transaction.");
 					setTimeout(clear,3000);	
 					currentUI = null;
 					setTimeout(()=>{
-						clear(true);
+						clear(false);
 					},3000);
 				}
 
