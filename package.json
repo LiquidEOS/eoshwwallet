@@ -18,8 +18,8 @@
     "hdkey": "^1.0.0",
     "keypress": "^0.2.1",
     "node-fetch": "^2.1.2",
-    "oled-js-pi": "^1.0.5",
     "rpi-gpio": "^1.0.0",
+    "rpi-oled": "^0.9.1",
     "scrypt-async": "^2.0.0",
     "wif": "^2.0.6"
   }
