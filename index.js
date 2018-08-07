@@ -671,7 +671,7 @@ async function genMnemonicWithPass(password){
 		var encrypted = fs.readFileSync(filename).toString();
 		// decrypt
 		
-		console.log("pw:"password);
+		console.log("pw:",password);
 		var mnemonic = decrypt(encrypted, password);
 		console.log("dec:",password,encrypted, mnemonic);
 		return mnemonic;
