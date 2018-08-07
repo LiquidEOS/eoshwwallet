@@ -67,6 +67,7 @@ async function sendPixelMatrix(){
 	if(!pixels.length)
 		return;
 	console.log(pixels.length);
+    pixelMatrixPrev = JSON.parse(JSON.stringify(pixelMatrix));
 	oled.drawPixel(pixels,true);
 }
 async function init(){
