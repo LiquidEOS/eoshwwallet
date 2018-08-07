@@ -430,7 +430,7 @@ if(!isDebug){
 	                pullResistor: gpio.PULL_UP});
 	            buttons[i].on ('change', makeWatcher (pins[i]));
 	    }
-	}
+	});
 
 	// gpio.setMode(gpio.MODE_BCM);
 	// gpio.setup(5, gpio.DIR_IN, gpio.EDGE_BOTH);
