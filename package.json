@@ -19,6 +19,7 @@
     "keypress": "^0.2.1",
     "node-fetch": "^2.1.2",
     "raspi-gpio": "*",
+    "raspi":"*",
     "rpi-oled": "^0.9.1",
     "scrypt-async": "^2.0.0",
     "wif": "^2.0.6"
