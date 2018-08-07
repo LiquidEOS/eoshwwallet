@@ -36,7 +36,7 @@ let pixelMatrixPrev = [];
 let displaySize = {height: 64, width: 128};
 async function draw(){
 	await sendPixelMatrix();
-	// oled.update();
+	oled.update();
 	setTimeout(draw,500);
 
 }
