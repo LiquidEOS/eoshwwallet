@@ -567,8 +567,8 @@ const wif = require('wif')
 const bip39 = require('bip39')
 
 async function genSeed(pw){	
-    let mnemonic = bip39.generateMnemonic();
-    mnemonic = await genMnemonicWithPass(pw);
+    
+    let mnemonic = await genMnemonicWithPass(pw);
     // mnemonic = bip39.generateMnemonic();
 	const words = mnemonic.split(' ');	
 	// console.log(words.length);
@@ -591,7 +591,7 @@ async function genShowSeed(pw){
 		clear(false);
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
-		if(true){
+		if(false){
 			clear(false);
 			currentUI = null;
 			unlockWallet(genMnemonicWithPass(pw));
@@ -642,10 +642,42 @@ async function genShowSeed(pw){
 
 var publicKey = '';
 var privateKey = '';
+var filename = '/home/pi/wallet';
+
+var crypto = require('crypto'),
+    algorithm = 'aes-256-ctr',
+    password = 'd6F3Efeq';
+const salt = "6923hello$";
+function encrypt(text,password){
+	
+  var cipher = crypto.createCipher(algorithm,password+salt)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+ 
+function decrypt(text,password){
+	
+  var decipher = crypto.createDecipher(algorithm,password+salt);
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
+
 async function genMnemonicWithPass(password){
-	const hash = await secureHash(password);
-    let mnemonic = bip39.entropyToMnemonic(hash);
-    return mnemonic;
+	var walletExists = fs.existsSync(filename);
+	if(walletExists){
+		var encrypted = fs.readFileSync(filename);
+		// decrypt
+		var mnemonic = decrypt(encrypted, password);
+		return mnemonic;
+	}
+	else{
+		var mnemonic = bip39.generateMnemonic();
+		var encrypted = encrypt(mnemonic, password);
+		fs.writeFileSync(filename, encrypted);
+		return mnemonic;
+	}
     // return bip39.mnemonicToSeedHex(mnemonic);
 }
 function chunkSubstr(str, size) {
@@ -678,7 +710,7 @@ function unlockWallet(mnemonic){
 async function secureHash(cleartext) {
 	const scrypt = require('scrypt-async');
     return new Promise(async resolve => {
-        const salt = "6923hello$";
+        
         scrypt(cleartext, salt, {
             N: 16384,
             r: 8,
@@ -737,6 +769,13 @@ var enterPw = new InputMessage({
 		// unlocked
 		var mnemonic = '';
 		mnemonic = await genMnemonicWithPass(pw);
+		if(mnemonic.split(' ').length != 12)
+		{
+			drawText(3,3,"wrong password", true);
+			await delay(2500);
+			enterPw.start();
+			return;
+		}
 		unlockWallet(mnemonic);
 		currentUI = null;
 		
@@ -745,7 +784,7 @@ var enterPw = new InputMessage({
 });
 
 
-var passwordExist = fs.existsSync('/home/pi/wallet.inited');
+var passwordExist = fs.existsSync(filename);
 init().then(async ()=>{
 	clear(true);
 	if(passwordExist){
