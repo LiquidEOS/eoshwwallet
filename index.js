@@ -769,8 +769,10 @@ var enterPw = new InputMessage({
 		// unlocked
 		var mnemonic = '';
 		mnemonic = await genMnemonicWithPass(pw);
+		console.log(mnemonic);
 		if(mnemonic.split(' ').length != 12)
 		{
+			clear(false);
 			drawText(3,3,"wrong password", true);
 			await delay(2500);
 			enterPw.start();
