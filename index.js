@@ -311,7 +311,7 @@ class ConfirmationMessage {
 		this.selection = 0;
 		currentUI = this;
 		this.currentLine = 0;
-		this.offset = 0;
+		this.offset = -1;
 		this.stopped = false;
 		this.lastDraw = new Date().getTime();
 
@@ -323,7 +323,7 @@ class ConfirmationMessage {
 		this.currentLine--;
 		if(this.currentLine < 0)
 			this.currentLine = 0;
-		this.offset = 0;		
+		this.offset = -1;
 		this.drawOptions();
 	}
 	D(){
