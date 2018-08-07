@@ -376,7 +376,7 @@ class ConfirmationMessage {
 				if(this.lastDraw + 500 < new Date().getTime()){
 					
 					this.offset++;
-					if(this.offset > textToDraw.length - 16){
+					if(this.offset > textToDraw.length){
 						this.offset = 0;
 					}
 					this.lastDraw = new Date().getTime();
