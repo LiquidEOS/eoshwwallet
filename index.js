@@ -400,13 +400,15 @@ var handlers={
 }
 function makeWatcher (pin) {
     return function (val) {
+    			console.log("handling", pin,val);
     			if(val){
     				var funcName = handlers[pin];
     				console.log(pin,val, funcName);
     				if(currentUI && currentUI[funcName])
     					currentUI[funcName]();
     			}
-    			console.log(pin,val);
+    			console.log("done handling", pin,val);
+    			
                 // handleButton (pin, val);
             }
 }
