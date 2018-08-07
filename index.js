@@ -210,7 +210,6 @@ class InputMessage {
 		if(newSelection < 0)
 			newSelection = this.selection - newSelection;		
 		var newSelection = (this.selection % 9) + (this.currentLine * 9);
-		console.log(newLine, newSelection);
 		this.updateSelection(newSelection);
 	}
 	D(){
@@ -218,7 +217,6 @@ class InputMessage {
 		if(newLine < 0)
 			newLine = parseInt(this.options.choices/8);
 		this.currentLine = newLine;		
-		console.log(newLine, newSelection);
 		var newSelection = (this.selection % 9) + (this.currentLine * 9);
 		this.updateSelection(newSelection);
 	}
@@ -227,14 +225,12 @@ class InputMessage {
 		var newSelection = this.selection -1;
 		if(newSelection < 0)
 			newSelection = this.options.choices.length-1;
-		console.log(newSelection);
 		this.updateSelection(newSelection);
 	}
 	R(){
 		var newSelection = this.selection +1;
 		if(newSelection >= this.options.choices.length)
 			newSelection = 0;
-		console.log(newSelection);
 		this.updateSelection(newSelection);
 
 	}
@@ -276,8 +272,8 @@ class InputMessage {
 
 		for(var i=this.currentLine * 9; (i < choices.length) && (i < (this.currentLine+1) * 9); i++){
 			var j = i % 9;
-			drawBox(3+ j * 13,15, 10 ,10,true, i === this.selection);
-			drawText(3+j*13+1,16,choices[i].toString(), i !== this.selection);
+			drawBox(3+ j * 13,15, 10 ,11,true, i === this.selection);
+			drawText(3+j*13+1,17,choices[i].toString(), i !== this.selection);
 		}
 
         var textToDraw = '';
@@ -410,10 +406,10 @@ var handlers={
 }
 function makeWatcher (pin) {
     return function (val) {
-    			console.log("handling", pin,val);
+    			// console.log("handling", pin,val);
     			if(val){
     				var funcName = handlers[pin];
-    				console.log(pin,val, funcName);
+    				// console.log(pin,val, funcName);
     				if(currentUI && currentUI[funcName])
     					currentUI[funcName]();
     			}
@@ -428,7 +424,7 @@ var buttons = [];
 if(!isDebug){
 	var raspi = require ('raspi');
 	raspi.init (() => {
-		console.log("inited");
+		// console.log("inited");
 		const L_pin = 27 
 		const R_pin = 23 
 		const C_pin = 4 
@@ -438,7 +434,7 @@ if(!isDebug){
 		const B_pin = 6 
 		var pins = [L_pin, R_pin, C_pin, U_pin, D_pin, A_pin, B_pin];
 		for (var i=0; i<pins.length; i++) {
-				console.log("initing", pins[i]);
+				// console.log("initing", pins[i]);
 	            buttons[i] = new gpio.DigitalInput({
 	                pin:'GPIO'+pins[i],
 	                pullResistor: gpio.PULL_UP});
