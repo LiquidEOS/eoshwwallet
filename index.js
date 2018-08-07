@@ -200,6 +200,26 @@ class InputMessage {
 		},100);
 
 	}
+	U(){
+		var newLine = this.currentLine -1;
+		if(newLine < 0)
+			newLine = 0;
+		this.currentLine = newLine;
+		var newSelection = this.selection-9;
+		if(newSelection < 0)
+			newSelection = this.selection - newSelection;		
+		var newSelection = (this.selection % 9) + (this.currentLine * 9);
+		this.updateSelection(newSelection);
+	}
+	D(){
+		var newLine = this.currentLine +1;
+		if(newLine < 0)
+			newLine = parseInt(this.options.choices/8);
+		this.currentLine = newLine;		
+		var newSelection = (this.selection % 9) + (this.currentLine * 9);
+		this.updateSelection(newSelection);
+	}
+
 	L(){
 		var newSelection = this.selection -1;
 		if(newSelection < 0)
@@ -217,6 +237,7 @@ class InputMessage {
 		this.options.onSelect(this.input);
 		this.input = "";
 		this.showLast = false;
+		this.currentLine = 0;
 		this.selection = 0;
 	}
 	B(){
@@ -244,8 +265,9 @@ class InputMessage {
 		const {title,choices,hide} = this.options;
 		clear(false);
 		drawText(3,3,title, true);
-		for(var i=0; i < choices.length ; i++){
-			drawBox(3+ i * 13,15, 10 ,10,true, i === this.selection);
+
+		for(var i=this.currentLine * 9; i < choices.length && (i <= (this.currentLine+1) * 9); i++){
+			drawBox(3+ i * 13,15, 10 ,10,true, i === this.selection);			
 			drawText(3+i*13+1,17,choices[i].toString(), i !== this.selection);
 		}
 
@@ -261,11 +283,13 @@ class InputMessage {
 				textToDraw =  this.input;
 			}
 		}
-		var chunks = chunkSubstr(textToDraw, 12);
-		for (var i = 0; i <= chunks.length - 1; i++) {		
-			drawText(3,40 + i * 25,chunks[i], true,true);
-		}
-		// drawText(50,70,textToDraw,true, true);
+		if(textToDraw.length > 8)
+			textToDraw = textToDraw.substr(textToDraw.length-8,8);
+		// var chunks = chunkSubstr(textToDraw, 12);		
+		// for (var i = 0; i <= chunks.length - 1; i++) {
+		// 	drawText(3,40 + i * 25,chunks[i], true,true);
+		// }
+		drawText(3,40,textToDraw,true, true);
 	}
 }
 
@@ -282,9 +306,25 @@ class ConfirmationMessage {
 		var this2 = this;
 		this.selection = 0;
 		currentUI = this;
+		this.currentLine = 0;
+		this.offset;
+		this.stopped = false
 		setTimeout(()=>{
 			this2.drawOptions();
 		},100);
+	}
+	U(){
+		this.currentLine--;
+		if(this.currentLine < 0)
+			this.currentLine = 0;
+		this.drawOptions();
+	}
+	D(){
+		this.currentLine++;
+		var maxLines = this.options.maxLines || 4;
+		if(this.currentLine >= maxLines)
+			this.currentLine = maxLines-1;
+		this.drawOptions();
 	}
 	L(){
 		var newSelection = this.selection -1;
@@ -304,7 +344,8 @@ class ConfirmationMessage {
 	}
 	B(){
 		this.drawOptions();
-		this.selectInput();		
+		this.stopped = true;
+		this.selectInput();
 	}
 	updateSelection(newSelection){
 		this.selection = newSelection;		
@@ -319,14 +360,31 @@ class ConfirmationMessage {
 			drawBox(3+ i * 13,15, 15 ,20,true, i === this.selection);
 			drawText(3+i*13+1,25,choices[i].toString(), i !== this.selection);
 		}        
-		if(text)
-			drawText(5,40,text,true);
-		if(text2)
-			drawText(5,55,text2,true);
-		if(text3)
-			drawText(5,70,text3,true);
-		if(text4)
-			drawText(5,85,text4,true);
+		var lines = [text,text2,text3,text4];
+		var textToShow = lines[this.currentLine];
+		if(textToShow){
+			if(textToDraw.length > 8){
+				// needs scrolling:
+				if(this.lastDraw + 500 > new Date().getTime()){
+					this.offset++;
+					if(this.offset > textToDraw.length){
+						this.offset = 0;
+					}
+					this.lastDraw = new Date().getTime();					
+				}
+				textToDraw = textToDraw.substr(this.offset);
+				textToDraw = textToDraw.substr(textToDraw.length-8,8);				
+				var this2 = this;
+				setTimeout(()=>{
+					if(!this2.stopped){
+						this2.drawOptions();
+					}
+				},200);
+				
+			}
+			else
+				drawText(5,40,textToShow,true);
+		}
 	}
 }
 
