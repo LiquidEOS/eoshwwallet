@@ -591,7 +591,7 @@ async function genShowSeed(pw){
 		clear(false);
 		drawText(3,3,"showing seed:", true);
 		console.log('showing seed');
-		if(false){
+		if(true){
 			clear(false);
 			currentUI = null;
 			unlockWallet(genMnemonicWithPass(pw));
@@ -650,7 +650,7 @@ var crypto = require('crypto'),
 const salt = "6923hello$";
 function encrypt(text,password){
 	
-  var cipher = crypto.createCipher(algorithm,password+salt)
+  var cipher = crypto.createCipher(algorithm,salt + password.toString())
   var crypted = cipher.update(text,'utf8','hex')
   crypted += cipher.final('hex');
   return crypted;
@@ -658,7 +658,7 @@ function encrypt(text,password){
  
 function decrypt(text,password){
 	
-  var decipher = crypto.createDecipher(algorithm,password+salt);
+  var decipher = crypto.createDecipher(algorithm,salt + password.toString());
   var dec = decipher.update(text,'hex','utf8')
   dec += decipher.final('utf8');
   return dec;
@@ -673,14 +673,14 @@ async function genMnemonicWithPass(password){
 		
 
 		var mnemonic = decrypt(encrypted, password);
-		console.log("dec:"encrypted, mnemonic,password);
+		console.log("dec:",encrypted, mnemonic,password);
 		return mnemonic;
 	}
 	else{
 		var mnemonic = bip39.generateMnemonic();
 		var encrypted = encrypt(mnemonic, password);
 		fs.writeFileSync(filename, encrypted);
-		console.log("enc:"encrypted, mnemonic,password);
+		console.log("enc:",encrypted, mnemonic,password);
 		return mnemonic;
 	}
     // return bip39.mnemonicToSeedHex(mnemonic);
