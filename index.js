@@ -380,7 +380,7 @@ class ConfirmationMessage {
 					this.lastDraw = new Date().getTime();					
 				}
 				textToDraw = textToDraw.substr(this.offset);
-				textToDraw = textToDraw.substr(textToDraw.length-8,8);				
+				textToDraw = textToDraw.substr(0,8);
 				console.log("textToDraw-scroll",textToDraw);
 				var this2 = this;
 				setTimeout(()=>{
