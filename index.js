@@ -313,7 +313,9 @@ class ConfirmationMessage {
 		currentUI = this;
 		this.currentLine = 0;
 		this.offset;
-		this.stopped = false
+		this.stopped = false;
+		this.lastDraw = new Date().getTime();
+		
 		setTimeout(()=>{
 			this2.drawOptions();
 		},100);
@@ -377,7 +379,7 @@ class ConfirmationMessage {
 					if(this.offset > textToDraw.length){
 						this.offset = 0;
 					}
-					this.lastDraw = new Date().getTime();					
+					this.lastDraw = new Date().getTime();
 				}
 				textToDraw = textToDraw.substr(this.offset);
 				textToDraw = textToDraw.substr(0,8);
