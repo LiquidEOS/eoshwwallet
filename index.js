@@ -501,6 +501,9 @@ var bodyParser = require('body-parser')
 
 var unlocked = false;
 const app = express()
+var cors = require('cors');
+app.use(cors())
+
 app.use(bodyParser.json());
 app.get('/', async (req, res) => {
 	if(!unlocked){
@@ -645,9 +648,9 @@ var privateKey = '';
 var filename = '/home/pi/wallet';
 
 var crypto = require('crypto'),
-    algorithm = 'aes-256-ctr',
-    password = 'd6F3Efeq';
-const salt = "6923hello$";
+    algorithm = 'aes-256-ctr';
+const salt = "6923hello$"; // TODO: add wifi mac
+
 function encrypt(text,password){
 	
   var cipher = crypto.createCipher(algorithm,salt + password.toString())
