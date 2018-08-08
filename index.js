@@ -512,7 +512,7 @@ app.get('/', async (req, res) => {
 		res.send('locked');
 		return;
 	}
-	res.send(JSON.serialize({key:publicKey}));
+	res.send(JSON.stringify({key:publicKey}));
 });
 app.post('/', async (req, res) => {	
 	if(!unlocked){
@@ -537,7 +537,7 @@ app.post('/', async (req, res) => {
 
 					clear(false);
 					drawText(0,18,"Signed", true, true);
-					res.send(JSON.serialize({signature}));
+					res.send(JSON.stringify({signature}));
 					currentUI = null;
 					setTimeout(()=>{
 						clear(false);
@@ -547,7 +547,7 @@ app.post('/', async (req, res) => {
 					
 					clear(false);
 					drawText(0,18,"Rejected", true, true);
-					res.send(JSON.serialize({rejected:true}));
+					res.send(JSON.stringify({rejected:true}));
 					setTimeout(clear,3000);	
 					currentUI = null;
 					setTimeout(()=>{
