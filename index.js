@@ -611,7 +611,7 @@ app.post('/', async (req, res) => {
 					res.send(JSON.stringify({rejected:true}));
 					// setTimeout(clear,3000);	
 					currentUI = null;
-					setTimeout(()=>{
+					setTimeout((async )=>{
 						await clear(false);
 						await (600);
 						await drawImage('scatter_64x64.bmp',64,0);
