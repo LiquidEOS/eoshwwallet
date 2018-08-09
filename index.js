@@ -142,7 +142,7 @@ async function drawImage(file,offsetX,offsetY){
 	// 	// oled.drawBitmap(bitmap);
 	// 	oled.update();
 	// });
-	return pixelBitmap.parse(file).then(function(images){
+	return pixelBitmap.parse(file).then(async function(images){
 	  console.log(images[0].data);
 	  var pixels = [];
 	  for (var i = 0; i < images[0].data.length; i++) {
