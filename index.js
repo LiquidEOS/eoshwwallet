@@ -598,6 +598,8 @@ app.post('/', async (req, res) => {
 					currentUI = null;
 					setTimeout(()=>{
 						clear(false);
+						await drawImage('scatter_64x64.bmp',64,0);
+
 					},3000);
 				}
 				else {
@@ -609,6 +611,7 @@ app.post('/', async (req, res) => {
 					currentUI = null;
 					setTimeout(()=>{
 						clear(false);
+						await drawImage('scatter_64x64.bmp',64,0);
 					},3000);
 				}
 
