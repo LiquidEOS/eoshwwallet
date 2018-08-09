@@ -537,15 +537,19 @@ app.post('/', async (req, res) => {
 	 	 	texts.push(`${key}: ${val}`);
 	 	 
 	 	 }
+	 	 console.log("message",message);
 	 	 keys = Object.keys(message.data);
+
 	 	 for (var j = 0; j < keys.length; j++) {
 	 	 	var key = keys[j];
 	 	 	var val = message.data[key];
+	 	 	console.log("messageDataK",key,val);
 	 	 	texts.push(`${key}: ${val}`);
 	 	 	
 	 	 }
 	 	 for (var j = 0; j < message.authorization.length; j++) {
 	 	 	var auth = message.authorization[j];	 	 	
+	 	 	console.log("messageDataA",auth);
 	 	 	texts.push(`auth: ${auth.actor}@${auth.permission}`);
 	 	 }
 	 }
@@ -558,7 +562,7 @@ app.post('/', async (req, res) => {
 					drawText(0,18,"Signing", true, true);
 					sendPixelMatrix();
 					await delay(800);
-					var signature = ecc.sign(req.body.trx.buf.data, privateKey);
+					var signature = ecc.sign(Buffer.from(req.body.trx.buf.data), privateKey);
 
 					clear(false);
 					drawText(0,18,"Signed", true, true);
