@@ -146,7 +146,7 @@ async function drawImage(file,offsetX,offsetY){
 	  console.log(images[0].data);
 	  var pixels = [];
 	  for (var i = 0; i < images[0].data.length; i++) {
-	  	if(i % 4 == 3)
+	  	if(i % 4 == 2)
 	  		pixels.push(images[0].data[i]);
 	  }
 	  for (var i = 0; i < pixels.length; i++) {
