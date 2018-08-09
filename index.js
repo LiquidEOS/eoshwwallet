@@ -166,11 +166,11 @@ async function drawImage(file,offsetX,offsetY){
 async function splash(time){
 	await clear(false);
 	await drawImage('liquideos_logo.bmp',0,0);
-	return await sendPixelMatrix();
+	await sendPixelMatrix();
 	await delay(time);
 	await clear(false);	
 	await drawImage('scatter_logo.bmp',0,0);
-	return await sendPixelMatrix();
+	await sendPixelMatrix();
 	await delay(time);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
@@ -436,8 +436,7 @@ class ConfirmationMessage {
 			await drawImage('eos_32.bmp',76,0);
 			await drawImage('scatter_32x32.bmp',96,0);
 		}
-		
-		
+		await sendPixelMatrix();
 	}
 }
 
