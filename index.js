@@ -433,7 +433,7 @@ class ConfirmationMessage {
 		}
 		if(drawLogos){
 			await drawImage('liquid_32.bmp',48,0);
-			await drawImage('eos_32.bmp',76,0);
+			await drawImage('eos_32.bmp',72,0);
 			await drawImage('scatter_32x32.bmp',96,0);
 		}
 		await sendPixelMatrix();
