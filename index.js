@@ -35,9 +35,20 @@ BDFBig.loadSync('c64d.bdf');
 let pixelMatrix = [];
 let pixelMatrixPrev = [];
 let displaySize = {height: 64, width: 128};
-async function draw(){
+let pauseDraw = false;
+function beginDraw(){
+	pauseDraw = true;
+}
+function endDraw(){
 	await sendPixelMatrix();
 	oled.update();
+	pauseDraw = false;	
+}
+async function draw(){
+	if(!pauseDraw){
+		await sendPixelMatrix();
+		oled.update();
+	}
 	setTimeout(draw,200);
 
 }
@@ -395,8 +406,10 @@ class ConfirmationMessage {
 		this.drawOptions();
 	}
 
-	async drawOptions(){				
+	async drawOptions(){		
 		const {title,choices,text, text2, text3, text4,texts, drawLogos} = this.options;
+		beginDraw();
+		var needTimer = false;
 		await clear(false);
 		await drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
@@ -420,12 +433,8 @@ class ConfirmationMessage {
 				}
 				textToDraw = textToDraw.substr(this.offset);
 				textToDraw = textToDraw.substr(0,16);
+				needTimer = true;
 				var this2 = this;
-				setTimeout(()=>{
-					if(!this2.stopped){
-						this2.drawOptions();
-					}
-				},200);
 				await drawText(2,40,textToDraw,true);
 			}
 			else
@@ -433,10 +442,17 @@ class ConfirmationMessage {
 		}
 		if(drawLogos){
 			await drawImage('liquid_32.bmp',48,0);
-			await drawImage('eos_32.bmp',72,0);
+			await drawImage('eos_32.bmp',74,0);
 			await drawImage('scatter_32x32.bmp',96,0);
 		}
-		await sendPixelMatrix();
+		endDraw();
+		if(needTimer){
+			setTimeout(()=>{
+				if(!this2.stopped){
+					this2.drawOptions();
+				}
+			},400);
+		}
 	}
 }
 
