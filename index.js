@@ -97,10 +97,10 @@ function drawPixel(x,y,c){
 	}
 }
 
-function clear(color){
-	drawBox(0,0,displaySize.width,displaySize.height,color,color);
+async function clear(color){
+	return drawBox(0,0,displaySize.width,displaySize.height,color,color);
 }
-function drawBox(x,y,w,h,b,f){
+async function drawBox(x,y,w,h,b,f){
 	for(var xi=x; xi < x+w; xi++){
 		for(var yi=y; yi < y+h; yi++){
 			var color = f || (b && (xi == x || xi == x+w-1 || yi == y || yi == y+h-1));
@@ -109,7 +109,7 @@ function drawBox(x,y,w,h,b,f){
 	}
 }
 
-function drawText(xo,yo, t,color, big){
+async function drawText(xo,yo, t,color, big){
 	var b = big ? BDFBig : BDF;
 	var bitmap = b.writeText(t,{});
 	//console.log(bitmap);
@@ -586,6 +586,7 @@ app.post('/', async (req, res) => {
 		texts,
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
+					await (600);
 					clear(false);
 					drawText(0,18,"Signing", true, true);
 					sendPixelMatrix();
@@ -596,8 +597,9 @@ app.post('/', async (req, res) => {
 					drawText(0,18,"Signed", true, true);
 					res.send(JSON.stringify({signature}));
 					currentUI = null;
-					setTimeout(()=>{
-						clear(false);
+					setTimeout(async ()=>{
+						await clear(false);
+						await (600);
 						await drawImage('scatter_64x64.bmp',64,0);
 
 					},3000);
@@ -607,10 +609,11 @@ app.post('/', async (req, res) => {
 					clear(false);
 					drawText(0,18,"Rejected", true, true);
 					res.send(JSON.stringify({rejected:true}));
-					setTimeout(clear,3000);	
+					// setTimeout(clear,3000);	
 					currentUI = null;
 					setTimeout(()=>{
-						clear(false);
+						await clear(false);
+						await (600);
 						await drawImage('scatter_64x64.bmp',64,0);
 					},3000);
 				}
