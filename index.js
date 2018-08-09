@@ -387,7 +387,7 @@ class ConfirmationMessage {
 		this.drawOptions();
 	}
 
-	drawOptions(){				
+	async drawOptions(){				
 		const {title,choices,text, text2, text3, text4,texts} = this.options;
 		clear(false);
 		drawText(3,3,title, true);
