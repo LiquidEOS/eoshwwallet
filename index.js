@@ -615,9 +615,9 @@ app.post('/', async (req, res) => {
 						await delay(600);
 						await clear(false);
 						await delay(600);						
-						await drawImage('liquid_64x64.bmp',0,0);
-						await drawImage('eos_64x64.bmp',48,0);
-						await drawImage('scatter_64x64.bmp',76,0);
+						await drawImage('liquid_64.bmp',0,0);
+						await drawImage('eos_64.bmp',48,0);
+						await drawImage('scatter_64.bmp',76,0);
 						// await drawImage('scatter_32x32.bmp',96,0);
 
 					},3000);
@@ -632,9 +632,9 @@ app.post('/', async (req, res) => {
 					setTimeout(async()=>{
 						await clear(false);
 						await (600);
-						await drawImage('liquid_64x64.bmp',0,0);
-						await drawImage('eos_64x64.bmp',48,0);
-						await drawImage('scatter_64x64.bmp',76,0);
+						await drawImage('liquid_64.bmp',0,0);
+						await drawImage('eos_64.bmp',48,0);
+						await drawImage('scatter_64.bmp',76,0);
 					},3000);
 				}
 
