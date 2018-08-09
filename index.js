@@ -426,6 +426,8 @@ class ConfirmationMessage {
 			else
 				drawText(2,40,textToDraw,true);
 		}
+		await drawImage('liquid_32x32.bmp',48,0);
+		await drawImage('eos_32x32.bmp',64,0);
 		await drawImage('scatter_32x32.bmp',96,0);
 		
 		
@@ -542,6 +544,11 @@ app.get('/', async (req, res) => {
 	if(!unlocked){
 		clear(false);
 		drawText(0,0,"click to unlock", true);
+		await (1500);
+		await clear(false);
+		await drawImage('liquid_64x64.bmp',0,0);
+		await drawImage('eos_64x64.bmp',48,0);
+		await drawImage('scatter_64x64.bmp',76,0);
 		res.send('locked');
 		return;
 	}
@@ -604,8 +611,11 @@ app.post('/', async (req, res) => {
 					setTimeout(async ()=>{
 						await delay(600);
 						await clear(false);
-						await delay(600);
-						await drawImage('scatter_64x64.bmp',64,0);
+						await delay(600);						
+						await drawImage('liquid_64x64.bmp',0,0);
+						await drawImage('eos_64x64.bmp',48,0);
+						await drawImage('scatter_64x64.bmp',76,0);
+						// await drawImage('scatter_32x32.bmp',96,0);
 
 					},3000);
 				}
@@ -619,7 +629,9 @@ app.post('/', async (req, res) => {
 					setTimeout(async()=>{
 						await clear(false);
 						await (600);
-						await drawImage('scatter_64x64.bmp',64,0);
+						await drawImage('liquid_64x64.bmp',0,0);
+						await drawImage('eos_64x64.bmp',48,0);
+						await drawImage('scatter_64x64.bmp',76,0);
 					},3000);
 				}
 
