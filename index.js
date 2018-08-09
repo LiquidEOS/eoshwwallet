@@ -586,8 +586,9 @@ app.post('/', async (req, res) => {
 		texts,
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
-					await (600);
+					await delay(600);
 					clear(false);
+					await delay(600);
 					drawText(0,18,"Signing", true, true);
 					sendPixelMatrix();
 					await delay(800);
@@ -598,8 +599,9 @@ app.post('/', async (req, res) => {
 					res.send(JSON.stringify({signature}));
 					currentUI = null;
 					setTimeout(async ()=>{
+						await delay(600);
 						await clear(false);
-						await (600);
+						await delay(600);
 						await drawImage('scatter_64x64.bmp',64,0);
 
 					},3000);
