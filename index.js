@@ -429,8 +429,8 @@ class ConfirmationMessage {
 				drawText(2,40,textToDraw,true);
 		}
 		if(drawLogos){
-			await drawImage('liquid_32.bmp',40,0);
-			await drawImage('eos_32.bmp',64,0);
+			await drawImage('liquid_32.bmp',48,0);
+			await drawImage('eos_32.bmp',76,0);
 			await drawImage('scatter_32x32.bmp',96,0);
 		}
 		
