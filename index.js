@@ -328,7 +328,7 @@ class ConfirmationMessage {
 	}
 	D(){
 		this.currentLine++;
-		var maxLines = this.options.maxLines || 4;
+		var maxLines = this.options.texts ? this.options.texts.length : (this.options.maxLines || 4);
 		if(this.currentLine >= maxLines)
 			this.currentLine = maxLines-1;
 		this.offset = 0;
@@ -542,14 +542,12 @@ app.post('/', async (req, res) => {
 
 	 	 for (var j = 0; j < keys.length; j++) {
 	 	 	var key = keys[j];
-	 	 	var val = message.data[key];
-	 	 	console.log("messageDataK",key,val);
+	 	 	var val = message.data[key];	 	 	
 	 	 	texts.push(`${key}: ${val}`);
 	 	 	
 	 	 }
 	 	 for (var j = 0; j < message.authorization.length; j++) {
-	 	 	var auth = message.authorization[j];	 	 	
-	 	 	console.log("messageDataA",auth);
+	 	 	var auth = message.authorization[j];	 	 		 	 	
 	 	 	texts.push(`auth: ${auth.actor}@${auth.permission}`);
 	 	 }
 	 }
