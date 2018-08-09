@@ -134,8 +134,9 @@ function drawLine(x0,y0,x1,y1,c){
 		              if (e2 < dy) { err += dx; y0 += sy; }
 		}
 }
+var pngtolcd = require('png-to-lcd');
 async function drawImage(file,offsetX,offsetY){
-	var pngtolcd = require('png-to-lcd');
+	
 
 	// pngtolcd(file, true, function(err, bitmap) {
 	// 	oled.buffer = bitmap;
@@ -157,7 +158,7 @@ async function drawImage(file,offsetX,offsetY){
 	    if(pixels[i] === 255)
 	    	await drawPixel(x+offsetX,y+offsetY,true);
 	  }
-	  return sendPixelMatrix();	  
+	  
 	  // oled.drawBitmap(pixels,true);
 	  // oled.update();
 	});
@@ -165,9 +166,11 @@ async function drawImage(file,offsetX,offsetY){
 async function splash(time){
 	await clear(false);
 	await drawImage('liquideos_logo.bmp',0,0);
+	return await sendPixelMatrix();
 	await delay(time);
 	await clear(false);	
 	await drawImage('scatter_logo.bmp',0,0);
+	return await sendPixelMatrix();
 	await delay(time);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
@@ -394,11 +397,11 @@ class ConfirmationMessage {
 
 	async drawOptions(){				
 		const {title,choices,text, text2, text3, text4,texts, drawLogos} = this.options;
-		clear(false);
-		drawText(3,3,title, true);
+		await clear(false);
+		await drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
-			drawBox(3+ i * 14,17, 15,20 + ((i === this.selection) ? 3:0),true, i === this.selection);
-			drawText(4+i*14,25,choices[i].toString(), i !== this.selection);
+			await drawBox(3+ i * 14,17, 15,20 + ((i === this.selection) ? 3:0),true, i === this.selection);
+			await drawText(4+i*14,25,choices[i].toString(), i !== this.selection);
 		}        
 		var lines = texts || [text,text2,text3,text4];
 		var textToDraw = lines[this.currentLine];
@@ -423,10 +426,10 @@ class ConfirmationMessage {
 						this2.drawOptions();
 					}
 				},200);
-				drawText(2,40,textToDraw,true);
+				await drawText(2,40,textToDraw,true);
 			}
 			else
-				drawText(2,40,textToDraw,true);
+				await drawText(2,40,textToDraw,true);
 		}
 		if(drawLogos){
 			await drawImage('liquid_32.bmp',48,0);
