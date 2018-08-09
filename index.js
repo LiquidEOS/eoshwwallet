@@ -133,7 +133,7 @@ function drawLine(x0,y0,x1,y1,c){
 		              if (e2 < dy) { err += dx; y0 += sy; }
 		}
 }
-async function drawImage(file){
+async function drawImage(file,offsetX,offsetY){
 	var pngtolcd = require('png-to-lcd');
 
 	// pngtolcd(file, true, function(err, bitmap) {
@@ -144,13 +144,26 @@ async function drawImage(file){
 	// });
 	return pixelBitmap.parse(file).then(function(images){
 	  console.log(images[0].data);
-	  oled.drawBitmap(images[0].data);
-	  oled.update();
+	  var pixels = [];
+	  for (var i = 0; i < images[0].data.length; i++) {
+	  	if(i % 4 == 3)
+	  		pixels.push(images[0].data[i]);
+	  }
+	  for (var i = 0; i < pixels.length; i++) {
+	    x = Math.floor(i % images[0].width);
+	    y = Math.floor(i / images[0].width);
+
+	    //this.drawPixel([x, y, pixels[i]], false);
+	    await drawPixel(x+offsetX,y+offsetY,pixels[i] !== 0);
+	  }
+	  return sendPixelMatrix();	  
+	  // oled.drawBitmap(pixels,true);
+	  // oled.update();
 	});
 }
 async function splash(){
 	await clear(false);
-	await drawImage('scatter_logo.bmp');
+	await drawImage('scatter_logo.bmp',0,0);
 	await delay(1000);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
