@@ -137,9 +137,9 @@ async function drawImage(file){
 	var pngtolcd = require('png-to-lcd');
 
 	pngtolcd(file, true, function(err, bitmap) {
-		// oled.buffer = bitmap;
-		console.log(bitmap);
-		oled.drawBitmap(bitmap);
+		oled.buffer = bitmap;
+		// console.log(bitmap);
+		// oled.drawBitmap(bitmap);
 		oled.update();
 	});
 	// return pixelBitmap.parse(file).then(function(images){
