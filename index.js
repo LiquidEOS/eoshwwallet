@@ -567,11 +567,12 @@ app.get('/', async (req, res) => {
 		clear(false);
 		drawText(0,0,"click to unlock", true);
 		await delay(1500);
+		beginDraw();
 		await clear(false);
-		await delay(500);
 		await drawImage('liquid_64.bmp',-10,0);
 		await drawImage('eos_64.bmp',38,0);
 		await drawImage('scatter_64x64.bmp',76,0);
+		endDraw();
 		res.send('locked');
 		return;
 	}
@@ -584,11 +585,12 @@ app.post('/', async (req, res) => {
 		await delay(500);
 		drawText(0,0,"click to unlock", true);
 		await delay(1500);
+		beginDraw();
 		await clear(false);
-		await delay(500);
 		await drawImage('liquid_64.bmp',-10,0);
 		await drawImage('eos_64.bmp',38,0);
 		await drawImage('scatter_64x64.bmp',76,0);
+		endDraw();
 		res.send('locked');
 		return;
 	}
@@ -642,11 +644,12 @@ app.post('/', async (req, res) => {
 					currentUI = null;
 					setTimeout(async ()=>{
 						await delay(600);
-						await clear(false);
-						await delay(600);						
+						beginDraw();
+						await clear(false);						
 						await drawImage('liquid_64.bmp',-10,0);
-						await drawImage('eos_64.bmp',32,0);
-						await drawImage('scatter_64x64.bmp',64,0);
+						await drawImage('eos_64.bmp',38,0);
+						await drawImage('scatter_64x64.bmp',76,0);
+						endDraw();
 						// await drawImage('scatter_32x32.bmp',96,0);
 
 					},3000);
@@ -660,11 +663,12 @@ app.post('/', async (req, res) => {
 					currentUI = null;
 					setTimeout(async()=>{
 						await delay(600);
-						await clear(false);
-						await delay(600);
+						beginDraw();
+						await clear(false);						
 						await drawImage('liquid_64.bmp',-10,0);
-						await drawImage('eos_64.bmp',32,0);
-						await drawImage('scatter_64x64.bmp',64,0);
+						await drawImage('eos_64.bmp',38,0);
+						await drawImage('scatter_64x64.bmp',76,0);
+						endDraw();
 					},3000);
 				}
 
