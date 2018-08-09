@@ -140,6 +140,7 @@ function drawImage(file){
 	});
 }
 async function splash(){
+	await clear(false);
 	await drawImage('scatter_logo.bmp');
 	await delay(1000);	
 
