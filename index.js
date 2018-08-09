@@ -423,7 +423,7 @@ class ConfirmationMessage {
 			else
 				drawText(2,40,textToDraw,true);
 		}
-		await drawImage('scatter_32x32.bmp',64,32);
+		await drawImage('scatter_32x32.bmp',96,0);
 		
 		
 	}
