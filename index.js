@@ -154,8 +154,6 @@ async function drawImage(file,offsetX,offsetY){
 	    y = Math.floor(i / images[0].width);
 
 	    //this.drawPixel([x, y, pixels[i]], false);
-	    if(pixels[i] !== 255)
-	    	console.log('got black pixel');
 	    await drawPixel(x+offsetX,y+offsetY,pixels[i] === 255);
 	  }
 	  return sendPixelMatrix();	  
@@ -854,8 +852,7 @@ init().then(async ()=>{
 	clear(true);
 	await splash();
 	if(passwordExist){
-
-		// enterPw.start();
+		enterPw.start();
 	}
 	else{
 		// await splash();
