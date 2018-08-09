@@ -134,21 +134,21 @@ function drawLine(x0,y0,x1,y1,c){
 		}
 }
 async function drawImage(file){
-	return pixelBitmap.parse(file).then(function(images){
-	  console.log(images);
-	  oled.drawBitmap(images[0].data);
-	  oled.update();
+	var pngtolcd = require('png-to-lcd');
+
+	pngtolcd(file, true, function(err, bitmap) {
+		oled.buffer = bitmap;
+		oled.update();
 	});
+	// return pixelBitmap.parse(file).then(function(images){
+	//   console.log(images);
+	//   oled.drawBitmap(images[0].data);
+	//   oled.update();
+	// });
 }
 async function splash(){
 	await clear(false);
-	await drawImage('scatter_logo.bmp');
-	await delay(1000);	
-
-	await drawImage('scatter_logo.bmp');
-	await delay(1000);	
-
-	await drawImage('scatter_logo.bmp');
+	await drawImage('scatter_logo.png');
 	await delay(1000);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);

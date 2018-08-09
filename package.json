@@ -20,6 +20,7 @@
     "keypress": "^0.2.1",
     "node-fetch": "^2.1.2",
     "pixel-bmp": "0.0.1",
+    "png-to-lcd": "^1.0.3",
     "raspi": "*",
     "raspi-gpio": "*",
     "rpi-oled": "^0.9.1",
