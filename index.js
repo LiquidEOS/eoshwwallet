@@ -143,7 +143,6 @@ async function drawImage(file,offsetX,offsetY){
 	// 	oled.update();
 	// });
 	return pixelBitmap.parse(file).then(async function(images){
-	  console.log(images[0].data);
 	  var pixels = [];
 	  for (var i = 0; i < images[0].data.length; i++) {
 	  	if(i % 4 == 2)
@@ -424,6 +423,9 @@ class ConfirmationMessage {
 			else
 				drawText(2,40,textToDraw,true);
 		}
+		await drawImage('scatter_32x32.bmp',64,32);
+		
+		
 	}
 }
 
