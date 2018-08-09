@@ -317,8 +317,8 @@ class InputMessage {
 
 		for(var i=this.currentLine * 9; (i < choices.length) && (i < (this.currentLine+1) * 9); i++){
 			var j = i % 9;
-			drawBox(3+ j * 13,15, 10 ,11,true, i === this.selection);
-			drawText(3+j*13+1,17,choices[i].toString(), i !== this.selection);
+			drawBox(3+ j * 13,17, 10 ,16,true, i === this.selection);
+			drawText(3+j*13+1,18,choices[i].toString(), i !== this.selection);
 		}
 
         var textToDraw = '';
