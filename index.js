@@ -15,7 +15,8 @@ var bg3 = "Qk3eDwAAAAAAAD4AAAAoAAAAegAAAPoAAAABAAEAAAAAAAAAAAAlFgAAJRYAAAIAAAACA
 var tst = "Qk22AAAAAAAAAD4AAAAoAAAAGwAAAB4AAAABAAEAAAAAAHgAAAASCwAAEgsAAAAAAAAAAAAAAAAAAP///wD////g////4P///+D////g////4P/B/+D/HP/g/35/4P7/v+D+/5/g/n/f4P8/3+D/n9/g/8/f4P/j3+D/+9/g///f4PB/v+Dn/7/g7/+/4O//v+Dv/7/g7/9/4O/+f+D3/P/g+/n/4PgD/+D////g////4P///+A=";
 const isDebug = process.env.DEBUG;
 var OLED = require('rpi-oled');
- 
+var pixelBitmap= require('pixel-bmp');
+
 var opts = {
   width: 128,
   height: 64,
@@ -132,11 +133,15 @@ function drawLine(x0,y0,x1,y1,c){
 		              if (e2 < dy) { err += dx; y0 += sy; }
 		}
 }
-
+function drawImage(file){
+	pixelBitmap.parse(file).then(function(images){
+	  oled.drawBitmap(images[0]);	  
+	  oled.update();
+	});
+}
 async function splash(){
-	// await sendImage(0,0,bg3);
-	// await sendPixelMatrix();	
-	// await delay(2000);
+	await drawImage(0,0,'scatter_logo.bmp');
+	await delay(1000);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
 	// await sendPixelMatrix();
@@ -822,11 +827,13 @@ var enterPw = new InputMessage({
 var passwordExist = fs.existsSync(filename);
 init().then(async ()=>{
 	clear(true);
+	await splash();
 	if(passwordExist){
+
 		enterPw.start();
 	}
 	else{
-		await splash();
+		// await splash();
 		startSelectPW();
 	}
 });
