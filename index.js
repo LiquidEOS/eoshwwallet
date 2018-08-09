@@ -135,8 +135,8 @@ function drawLine(x0,y0,x1,y1,c){
 }
 async function drawImage(file){
 	return pixelBitmap.parse(file).then(function(images){
-	  console.log(images[0]);
-	  oled.drawBitmap(images[0]);
+	  console.log(images.length);
+	  oled.drawBitmap(images[0][0]);
 	  oled.update();
 	});
 }
