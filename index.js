@@ -391,7 +391,7 @@ class ConfirmationMessage {
 	}
 
 	async drawOptions(){				
-		const {title,choices,text, text2, text3, text4,texts} = this.options;
+		const {title,choices,text, text2, text3, text4,texts, drawLogos} = this.options;
 		clear(false);
 		drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
@@ -426,9 +426,11 @@ class ConfirmationMessage {
 			else
 				drawText(2,40,textToDraw,true);
 		}
-		await drawImage('liquid_32x32.bmp',48,0);
-		await drawImage('eos_32x32.bmp',64,0);
-		await drawImage('scatter_32x32.bmp',96,0);
+		if(drawLogos){
+			await drawImage('liquid_32.bmp',48,0);
+			await drawImage('eos_32.bmp',64,0);
+			await drawImage('scatter_32x32.bmp',96,0);
+		}
 		
 		
 	}
@@ -546,8 +548,8 @@ app.get('/', async (req, res) => {
 		drawText(0,0,"click to unlock", true);
 		await (1500);
 		await clear(false);
-		await drawImage('liquid_64x64.bmp',0,0);
-		await drawImage('eos_64x64.bmp',48,0);
+		await drawImage('liquid_64.bmp',0,0);
+		await drawImage('eos_64.bmp',48,0);
 		await drawImage('scatter_64x64.bmp',76,0);
 		res.send('locked');
 		return;
@@ -594,6 +596,7 @@ app.post('/', async (req, res) => {
 	const confirm = new ConfirmationMessage({
 		title: "Sign?",
 		texts,
+		drawLogos: true,
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
 					await delay(600);
