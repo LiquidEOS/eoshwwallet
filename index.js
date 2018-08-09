@@ -525,14 +525,17 @@ app.post('/', async (req, res) => {
 	// abi = eos.fc.abiCache.abi(contractAccount, abi);
 	// const data = abi.fromBuffer(action.name, action.data);	
 	var texts=[];
+	test.push("# actions: " + req.body.trx.messages.length);
 	for (var i = 0; i <  req.body.trx.messages.length; i++) {
 	 	 var message = req.body.trx.messages[i];
 	 	 var keys = Object.keys(message);
 	 	 for (var j = 0; j < keys.length; j++) {
 	 	 	var key = keys[j];
+	 	 	if(key === 'authorization' | key === 'data')
+	 	 		continue;
 	 	 	var val = message[key];
 	 	 	texts.push(`${key}: ${val}`);
-	 	 	
+	 	 
 	 	 }
 	 	 keys = Object.keys(message.data);
 	 	 for (var j = 0; j < keys.length; j++) {
@@ -540,6 +543,10 @@ app.post('/', async (req, res) => {
 	 	 	var val = message.data[key];
 	 	 	texts.push(`${key}: ${val}`);
 	 	 	
+	 	 }
+	 	 for (var j = 0; j < message.authorization.length; j++) {
+	 	 	var auth = message.authorization[j];	 	 	
+	 	 	texts.push(`auth: ${auth.actor}@${auth.permission}`);
 	 	 }
 	 }
 	const confirm = new ConfirmationMessage({
