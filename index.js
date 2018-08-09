@@ -90,10 +90,11 @@ async function init(){
 
 
 function drawPixel(x,y,c){
+	if(x < 0)
+		return;
 	var col = pixelMatrix[x];
-	if(col && col.length > y){
+	if(col && col.length > y && y >= 0){
 		col[y] = c;
-
 	}
 }
 
@@ -153,7 +154,8 @@ async function drawImage(file,offsetX,offsetY){
 	    y = Math.floor(i / images[0].width);
 
 	    //this.drawPixel([x, y, pixels[i]], false);
-	    await drawPixel(x+offsetX,y+offsetY,pixels[i] === 255);
+	    if(pixels[i] === 255)
+	    	await drawPixel(x+offsetX,y+offsetY,true);
 	  }
 	  return sendPixelMatrix();	  
 	  // oled.drawBitmap(pixels,true);
@@ -548,9 +550,9 @@ app.get('/', async (req, res) => {
 		drawText(0,0,"click to unlock", true);
 		await (1500);
 		await clear(false);
-		await drawImage('liquid_64.bmp',0,0);
-		await drawImage('eos_64.bmp',48,0);
-		await drawImage('scatter_64x64.bmp',76,0);
+		await drawImage('liquid_64.bmp',-10,0);
+		await drawImage('eos_64.bmp',32,0);
+		await drawImage('scatter_64x64.bmp',64,0);
 		res.send('locked');
 		return;
 	}
@@ -615,9 +617,9 @@ app.post('/', async (req, res) => {
 						await delay(600);
 						await clear(false);
 						await delay(600);						
-						await drawImage('liquid_64.bmp',0,0);
-						await drawImage('eos_64.bmp',48,0);
-						await drawImage('scatter_64.bmp',76,0);
+						await drawImage('liquid_64.bmp',-10,0);
+						await drawImage('eos_64.bmp',32,0);
+						await drawImage('scatter_64x64.bmp',64,0);
 						// await drawImage('scatter_32x32.bmp',96,0);
 
 					},3000);
@@ -632,9 +634,9 @@ app.post('/', async (req, res) => {
 					setTimeout(async()=>{
 						await clear(false);
 						await (600);
-						await drawImage('liquid_64.bmp',0,0);
-						await drawImage('eos_64.bmp',48,0);
-						await drawImage('scatter_64.bmp',76,0);
+						await drawImage('liquid_64.bmp',-10,0);
+						await drawImage('eos_64.bmp',32,0);
+						await drawImage('scatter_64x64.bmp',64,0);
 					},3000);
 				}
 
