@@ -154,7 +154,9 @@ async function drawImage(file,offsetX,offsetY){
 	    y = Math.floor(i / images[0].width);
 
 	    //this.drawPixel([x, y, pixels[i]], false);
-	    await drawPixel(x+offsetX,y+offsetY,pixels[i] !== 0);
+	    if(pixels[i] !== 255)
+	    	console.log('got black pixel');
+	    await drawPixel(x+offsetX,y+offsetY,pixels[i] === 255);
 	  }
 	  return sendPixelMatrix();	  
 	  // oled.drawBitmap(pixels,true);
