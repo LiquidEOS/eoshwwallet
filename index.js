@@ -527,7 +527,7 @@ app.post('/', async (req, res) => {
 	const confirm = new ConfirmationMessage({
 		title: "Sign?",
 		text: req.body.text || "",
-		text2: req.body.text2 || "",1
+		text2: req.body.text2 || "",
 		text3: req.body.text3 || "",
 		text4: req.body.text4 || "",
 		onSelect: async (yn)=>{
