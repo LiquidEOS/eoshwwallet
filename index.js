@@ -135,7 +135,8 @@ function drawLine(x0,y0,x1,y1,c){
 }
 async function drawImage(file){
 	return pixelBitmap.parse(file).then(function(images){
-	  oled.drawBitmap(images[0]);	  
+	  console.log(images[0]);
+	  oled.drawBitmap(images[0]);
 	  oled.update();
 	});
 }
@@ -837,7 +838,7 @@ init().then(async ()=>{
 	await splash();
 	if(passwordExist){
 
-		enterPw.start();
+		// enterPw.start();
 	}
 	else{
 		// await splash();
