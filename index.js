@@ -39,7 +39,7 @@ let pauseDraw = false;
 function beginDraw(){
 	pauseDraw = true;
 }
-function endDraw(){
+async function endDraw(){
 	await sendPixelMatrix();
 	oled.update();
 	pauseDraw = false;	
@@ -445,7 +445,7 @@ class ConfirmationMessage {
 			await drawImage('eos_32.bmp',74,0);
 			await drawImage('scatter_32x32.bmp',96,0);
 		}
-		endDraw();
+		await endDraw();
 		if(needTimer){
 			setTimeout(()=>{
 				if(!this2.stopped){
