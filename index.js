@@ -162,10 +162,10 @@ async function drawImage(file,offsetX,offsetY){
 }
 async function splash(time){
 	await clear(false);
-	await drawImage('scatter_logo.bmp',0,0);
+	await drawImage('liquideos_logo.bmp',0,0);
 	await delay(time);
 	await clear(false);	
-	await drawImage('liquideos_logo.bmp',0,0);
+	await drawImage('scatter_logo.bmp',0,0);
 	await delay(time);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
