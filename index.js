@@ -429,7 +429,7 @@ class ConfirmationMessage {
 				drawText(2,40,textToDraw,true);
 		}
 		if(drawLogos){
-			await drawImage('liquid_32.bmp',48,0);
+			await drawImage('liquid_32.bmp',40,0);
 			await drawImage('eos_32.bmp',64,0);
 			await drawImage('scatter_32x32.bmp',96,0);
 		}
@@ -548,8 +548,9 @@ app.get('/', async (req, res) => {
 	if(!unlocked){
 		clear(false);
 		drawText(0,0,"click to unlock", true);
-		await (1500);
+		await delay(1500);
 		await clear(false);
+		await delay(500);
 		await drawImage('liquid_64.bmp',-10,0);
 		await drawImage('eos_64.bmp',32,0);
 		await drawImage('scatter_64x64.bmp',64,0);
@@ -560,8 +561,16 @@ app.get('/', async (req, res) => {
 });
 app.post('/', async (req, res) => {	
 	if(!unlocked){
-		clear(false);
+		await delay(1500);
+		await clear(false);
+		await delay(500);
 		drawText(0,0,"click to unlock", true);
+		await delay(1500);
+		await clear(false);
+		await delay(500);
+		await drawImage('liquid_64.bmp',-10,0);
+		await drawImage('eos_64.bmp',32,0);
+		await drawImage('scatter_64x64.bmp',64,0);
 		res.send('locked');
 		return;
 	}
@@ -632,8 +641,9 @@ app.post('/', async (req, res) => {
 					// setTimeout(clear,3000);	
 					currentUI = null;
 					setTimeout(async()=>{
+						await delay(600);
 						await clear(false);
-						await (600);
+						await delay(600);
 						await drawImage('liquid_64.bmp',-10,0);
 						await drawImage('eos_64.bmp',32,0);
 						await drawImage('scatter_64x64.bmp',64,0);
