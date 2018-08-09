@@ -361,14 +361,14 @@ class ConfirmationMessage {
 	}
 
 	drawOptions(){				
-		const {title,choices,text, text2, text3, text4} = this.options;
+		const {title,choices,text, text2, text3, text4,texts} = this.options;
 		clear(false);
 		drawText(3,3,title, true);
 		for(var i=0; i < choices.length ; i++){
 			drawBox(3+ i * 14,17, 15,20 + ((i === this.selection) ? 3:0),true, i === this.selection);
 			drawText(4+i*14,25,choices[i].toString(), i !== this.selection);
 		}        
-		var lines = [text,text2,text3,text4];
+		var lines = texts || [text,text2,text3,text4];
 		var textToDraw = lines[this.currentLine];
 		
 		if(textToDraw){
@@ -523,20 +523,35 @@ app.post('/', async (req, res) => {
 	}
 	// var abi = req.body.;
 	// abi = eos.fc.abiCache.abi(contractAccount, abi);
-	// const data = abi.fromBuffer(action.name, action.data);
+	// const data = abi.fromBuffer(action.name, action.data);	
+	var texts=[];
+	for (var i = 0; i <  body.trx.messages.length; i++) {
+	 	 var message = body.trx.messages[i];
+	 	 var keys = Object.keys(message);
+	 	 for (var j = 0; j < keys.length; j++) {
+	 	 	var key = keys[j];
+	 	 	var val = message[key];
+	 	 	texts.push(`${key}: ${val}`);
+	 	 	
+	 	 }
+	 	 keys = Object.keys(message.data);
+	 	 for (var j = 0; j < keys.length; j++) {
+	 	 	var key = keys[j];
+	 	 	var val = message.data[key];
+	 	 	texts.push(`${key}: ${val}`);
+	 	 	
+	 	 }
+	 }
 	const confirm = new ConfirmationMessage({
 		title: "Sign?",
-		text: req.body.text || "",
-		text2: req.body.text2 || "",
-		text3: req.body.text3 || "",
-		text4: req.body.text4 || "",
+		texts,
 		onSelect: async (yn)=>{
 				if(yn == 'Y'){					
 					clear(false);
 					drawText(0,18,"Signing", true, true);
 					sendPixelMatrix();
 					await delay(800);
-					var signature = ecc.sign(req.body.buf, privateKey);
+					var signature = ecc.sign(req.body.trx.buf.data, privateKey);
 
 					clear(false);
 					drawText(0,18,"Signed", true, true);
