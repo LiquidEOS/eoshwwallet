@@ -909,11 +909,11 @@ var passwordExist = fs.existsSync(filename);
 init().then(async ()=>{
 	clear(true);
 	if(passwordExist){
-		await splash(500);
+		await splash(1500);
 		enterPw.start();
 	}
 	else{		
-		await splash(2500);
+		await splash(3500);
 		startSelectPW();
 	}
 });
