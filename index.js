@@ -133,8 +133,8 @@ function drawLine(x0,y0,x1,y1,c){
 		              if (e2 < dy) { err += dx; y0 += sy; }
 		}
 }
-function drawImage(file){
-	pixelBitmap.parse(file).then(function(images){
+async function drawImage(file){
+	return pixelBitmap.parse(file).then(function(images){
 	  oled.drawBitmap(images[0]);	  
 	  oled.update();
 	});
