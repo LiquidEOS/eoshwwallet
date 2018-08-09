@@ -525,7 +525,7 @@ app.post('/', async (req, res) => {
 	// abi = eos.fc.abiCache.abi(contractAccount, abi);
 	// const data = abi.fromBuffer(action.name, action.data);	
 	var texts=[];
-	test.push("# actions: " + req.body.trx.messages.length);
+	texts.push("# actions: " + req.body.trx.messages.length);
 	for (var i = 0; i <  req.body.trx.messages.length; i++) {
 	 	 var message = req.body.trx.messages[i];
 	 	 var keys = Object.keys(message);
