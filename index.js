@@ -140,7 +140,13 @@ function drawImage(file){
 	});
 }
 async function splash(){
-	await drawImage(0,0,'scatter_logo.bmp');
+	await drawImage('scatter_logo.bmp');
+	await delay(1000);	
+
+	await drawImage('scatter_logo.bmp');
+	await delay(1000);	
+
+	await drawImage('scatter_logo.bmp');
 	await delay(1000);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
