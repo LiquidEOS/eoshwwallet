@@ -38,7 +38,7 @@ let displaySize = {height: 64, width: 128};
 async function draw(){
 	await sendPixelMatrix();
 	oled.update();
-	setTimeout(draw,500);
+	setTimeout(draw,200);
 
 }
 function t(num){
@@ -160,10 +160,13 @@ async function drawImage(file,offsetX,offsetY){
 	  // oled.update();
 	});
 }
-async function splash(){
+async function splash(time){
 	await clear(false);
 	await drawImage('scatter_logo.bmp',0,0);
-	await delay(1000);	
+	await delay(time);
+	await clear(false);	
+	await drawImage('liquideos_logo.bmp',0,0);
+	await delay(time);	
 	// await sendImage(0,0,bg1);
 	// await delay(2000);
 	// await sendPixelMatrix();
@@ -860,12 +863,12 @@ var enterPw = new InputMessage({
 var passwordExist = fs.existsSync(filename);
 init().then(async ()=>{
 	clear(true);
-	await splash();
 	if(passwordExist){
+		await splash(500);
 		enterPw.start();
 	}
-	else{
-		// await splash();
+	else{		
+		await splash(2500);
 		startSelectPW();
 	}
 });
