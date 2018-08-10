@@ -686,14 +686,14 @@ const hdkey = require('hdkey')
 const wif = require('wif')
 const bip39 = require('bip39')
 
-async function genSeed(pw){	
+// async function genSeed(pw){	
     
-    let mnemonic = await genMnemonicWithPass(pw);
-    // mnemonic = bip39.generateMnemonic();
-	const words = mnemonic.split(' ');	
-	// console.log(words.length);
-	return words;
-}
+//     // let mnemonic = await genMnemonicWithPass(pw);
+//     var mnemonic = bip39.generateMnemonic();
+// 	const words = mnemonic.split(' ');	
+// 	// console.log(words.length);
+// 	return words;
+// }
 async function showSeed(words){
 		for (var i = 0; i <= words.length - 1; i++) {
 			var word = words[i];
@@ -718,7 +718,7 @@ async function genShowSeed(pw){
 			return;
 		}
 		await delay(4000);		
-		const words = await genSeed(pw);
+		const words = (await genMnemonicWithPass(pw)).split(' ');
 		await showSeed(words);
 		clear(false);
 		console.log('showing seed again');
