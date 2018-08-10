@@ -714,7 +714,7 @@ async function genShowSeed(pw){
 		if(false){
 			clear(false);
 			currentUI = null;
-			unlockWallet(genMnemonicWithPass(pw));
+			unlockWallet(await genMnemonicWithPass(pw));
 			return;
 		}
 		await delay(4000);		
@@ -744,7 +744,7 @@ async function genShowSeed(pw){
 					// clear(false);
 					// unlocked
 					currentUI = null;
-					unlockWallet(genMnemonicWithPass(pw));
+					unlockWallet(await genMnemonicWithPass(pw));
 
 				}
 				else {
