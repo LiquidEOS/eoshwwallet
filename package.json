@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deb": "node-deb -- index.js *.js *.bmp"
+    "deb": "node-deb -- index.js *.js *.bmp *.bdf"
   },
   "author": "",
   "license": "ISC",
